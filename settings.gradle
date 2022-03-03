@@ -1,4 +1,4 @@
 
-rootProject.name = "BigFunSDK"
+rootProject.name = "BigFunTG"
 //include ':app'
 include ':bigfunglobal'
