@@ -65,15 +65,16 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
                 LogUtils.log( "timer: "+"1000");
                 LogUtils.log("mActivity: "+ mActivity+"Ket");
                 if (mActivity != null && !TextUtils.isEmpty(BigFunViewModel.SourceAppKey)) {
+                    LogUtils.log("mActivity123123: "+ mActivity+"Ket"+BigFunViewModel.SourceAppKey);
                     timer.cancel();
                     initIronSource();
                 }
             }
-        }, 0,1000);
+        }, 0,500);
     }
 
     private void initIronSource() {
-
+        LogUtils.log("initIronSource: "+ mActivity+"Ket");
             IntegrationHelper.validateIntegration(mActivity);
             //确保为正在启动的每个产品设置一个侦听器
             //设置视频侦听器
