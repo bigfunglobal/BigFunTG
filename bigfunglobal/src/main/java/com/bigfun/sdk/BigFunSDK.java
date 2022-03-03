@@ -114,6 +114,54 @@ public class BigFunSDK {
             }
         });
 
+        mApplication.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivityResumed(final Activity activity) {
+                mActivity = activity;
+                if (!isIn)
+                    HttpUtils.getInstance().upload(activity);
+                if (BigFunViewModel.adjust)
+                    Adjust.onResume();
+
+//                IronSource.onResume(activity);
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                mActivity = activity;
+                if (BigFunViewModel.adjust)
+                    Adjust.onPause();
+
+//                IronSource.onPause(activity);
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                mActivity = activity;
+            }
+        });
+
 //        myBilling = new MyBillingImpl();
         HttpUtils.getInstance().bigfunsdk(NetConstant.BINFUN_SDK, mChannelCode, new ResponseListener() {
             @Override
@@ -149,54 +197,7 @@ public class BigFunSDK {
             }
 
         });
-        mApplication.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityResumed(final Activity activity) {
-                mActivity = activity;
-                SourceNetWork.getInstance();
-                if (!isIn)
-                    HttpUtils.getInstance().upload(activity);
-                if (BigFunViewModel.adjust)
-                    Adjust.onResume();
-
-//                IronSource.onResume(activity);
-
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-
-                if (BigFunViewModel.adjust)
-                    Adjust.onPause();
-
-//                IronSource.onPause(activity);
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-
-            }
-        });
 //        myBilling.initialize(mContext);
 
 //        initLogin();
@@ -497,7 +498,7 @@ public class BigFunSDK {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
-        SourceNetWork.getInstance().showInterstitial();
+        SourceNetWork.showInterstitial();
 //        }
 
     }
@@ -534,7 +535,7 @@ public class BigFunSDK {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
-        SourceNetWork.getInstance().showRewardedVideo(listener);
+        SourceNetWork.showRewardedVideo(listener);
 //        }
     }
 
@@ -566,7 +567,7 @@ public class BigFunSDK {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
-        SourceNetWork.getInstance().createAndloadBanner(mBannerParentLayout, size);
+        SourceNetWork.createAndloadBanner(mBannerParentLayout, size);
 //        }
     }
 
@@ -580,7 +581,7 @@ public class BigFunSDK {
             return;
         }
         AdNetwork.getInstance().dstroy();
-        SourceNetWork.getInstance().onDestroy();
+        SourceNetWork.onDestroy();
     }
 
     /**

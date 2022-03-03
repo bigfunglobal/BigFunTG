@@ -34,9 +34,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SourceNetWork implements RewardedVideoListener, InterstitialListener, ImpressionDataListener {
-    private FrameLayout mBannerParentLayout;
-    private IronSourceBannerLayout mIronSourceBannerLayout;
-    private BFRewardedVideoListener listener;
+    private static FrameLayout mBannerParentLayout;
+    private static IronSourceBannerLayout mIronSourceBannerLayout;
+    private static BFRewardedVideoListener listener;
 
     public SourceNetWork() {
         TimerIronSource();
@@ -56,7 +56,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
         return instance;
     }
 
-    Timer timer = new Timer();
+    static Timer timer = new Timer();
     private void TimerIronSource() {
 
         timer.schedule(new TimerTask() {
@@ -96,17 +96,17 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
     }
 
 
-    public void showRewardedVideo(BFRewardedVideoListener listener) {
+    public static void showRewardedVideo(BFRewardedVideoListener videolistener) {
         Map<String, Object> map = new HashMap<>();
         map.put("adBFPlatForm", "IronSource");
         BigFunSDK.getInstance().onEvent(mContext, "BFAd_IS_RewardedVideo", map);
-        this.listener = listener;
+        listener = videolistener;
         if (IronSource.isRewardedVideoAvailable())
             //show rewarded video
             IronSource.showRewardedVideo();
     }
 
-    public void showInterstitial() {
+    public static void showInterstitial() {
         Map<String, Object> map = new HashMap<>();
         map.put("adBFPlatForm", "IronSource");
         BigFunSDK.getInstance().onEvent(mContext, "BFAd_IS_Interstitial", map);
@@ -116,7 +116,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
         }
     }
 
-    public void onDestroy() {
+    public static void onDestroy() {
         if(timer!=null){
             timer.cancel();
         }
@@ -131,9 +131,9 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
     /**
      * 创建并加载IronSource横幅
      */
-    private ISBannerSize isBannerSize = ISBannerSize.BANNER;
+    private static ISBannerSize isBannerSize = ISBannerSize.BANNER;
 
-    public void createAndloadBanner(FrameLayout mBannerParentLayout, AdBFSize size) {
+    public static void createAndloadBanner(FrameLayout mbannerParentLayout, AdBFSize size) {
         Map<String, Object> map = new HashMap<>();
         map.put("adBFPlatForm", "IronSource");
         map.put("adSize", size);
@@ -144,7 +144,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
             isBannerSize = ISBannerSize.LARGE;
         if (size.equals(AdBFSize.RECTANGLE_HEIGHT_250))
             isBannerSize = ISBannerSize.RECTANGLE;
-        this.mBannerParentLayout = mBannerParentLayout;
+        mBannerParentLayout = mbannerParentLayout;
 
         //使用IronSource实例化IronSourceBanner对象。createBanner API
         mIronSourceBannerLayout = IronSource.createBanner(mActivity, isBannerSize);
