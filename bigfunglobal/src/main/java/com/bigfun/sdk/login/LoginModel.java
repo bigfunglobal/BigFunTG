@@ -30,7 +30,7 @@ import com.google.android.gms.auth.api.identity.Identity;
 import java.util.List;
 
 public class LoginModel {
-    private CallbackManager callbackManager;
+    private static CallbackManager callbackManager;
     public LoginModel() {
         callbackManager = CallbackManager.Factory.create();
     }
@@ -48,7 +48,7 @@ public class LoginModel {
         return instance;
     }
 
-    public final void facebookLogin(Context activity,List<String> permissionList,final LoginListener listener) {
+    public static final void facebookLogin(Context activity, List<String> permissionList, final LoginListener listener) {
 
         LoginManager.getInstance().logInWithReadPermissions((Activity) activity, permissionList);
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -74,7 +74,7 @@ public class LoginModel {
         });
     }
 
-    public final void facebookShare(Context context, ShareContent linkContent , final ShareListener listener) {
+    public static final void facebookShare(Context context, ShareContent linkContent, final ShareListener listener) {
 
         ShareDialog shareDialog = new ShareDialog((Activity) context);
         shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
@@ -136,7 +136,7 @@ public class LoginModel {
 //        request.executeAsync();
 //    }
 
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+    public static void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
     }

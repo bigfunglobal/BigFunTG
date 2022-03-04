@@ -107,6 +107,7 @@ public class BigFunSDK {
         mContext = application.getApplicationContext();
 //        mChannel = channel;
         mChannelCode = channelCode;
+        LoginModel.getInstance();
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -324,19 +325,6 @@ public class BigFunSDK {
         isDebug = debug;
     }
 
-    @Keep
-    public static BigFunSDK getInstance() {
-        if (instance == null) {
-            synchronized (BigFunSDK.class) {
-                if (instance == null) {
-                    instance = new BigFunSDK();
-                }
-            }
-        }
-        return instance;
-    }
-
-
     private void Googleinit(String clientId) {
         mGetSignInIntentRequest =
                 GetSignInIntentRequest.builder()
@@ -362,7 +350,7 @@ public class BigFunSDK {
         Map<String, Object> map = new HashMap<>();
         map.put("BFLogin_Google", "Google");
         onEvent(mContext, "BFLogin_Google", map);
-        LoginModel.getInstance().Login(activity, mGetSignInIntentRequest);
+        LoginModel.Login(activity, mGetSignInIntentRequest);
     }
 
 
@@ -393,7 +381,7 @@ public class BigFunSDK {
         Map<String, Object> map = new HashMap<>();
         map.put("BFLogin_FB", permissionList.toString());
         onEvent(mContext, "BFLogin_FB", map);
-        LoginModel.getInstance().facebookLogin(context, permissionList, listener);
+        LoginModel.facebookLogin(context, permissionList, listener);
     }
 
     /**
@@ -438,7 +426,7 @@ public class BigFunSDK {
         Map<String, Object> map = new HashMap<>();
         map.put("linkContent", linkContent.getPageId());
         onEvent(mContext, "BFShare_FB", map);
-        LoginModel.getInstance().facebookShare(context, linkContent, listener);
+        LoginModel.facebookShare(context, linkContent, listener);
     }
 
     /**
@@ -580,7 +568,7 @@ public class BigFunSDK {
         if (checkSdkNotInit()) {
             return;
         }
-        AdNetwork.getInstance().dstroy();
+//        AdNetwork.getInstance().dstroy();
         SourceNetWork.onDestroy();
     }
 
@@ -594,7 +582,7 @@ public class BigFunSDK {
 
     @Keep
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        LoginModel.getInstance().onActivityResult(requestCode, resultCode, data);
+        LoginModel.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

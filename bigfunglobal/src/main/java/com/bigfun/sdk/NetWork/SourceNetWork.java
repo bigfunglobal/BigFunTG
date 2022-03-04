@@ -67,6 +67,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
                     if (mActivity != null && !TextUtils.isEmpty(BigFunViewModel.SourceAppKey)) {
                         LogUtils.log("mActivity123123: " + mActivity + "Ket" + BigFunViewModel.SourceAppKey);
                         timer.cancel();
+                        timer=null;
                         initIronSource();
                     }
                 }
