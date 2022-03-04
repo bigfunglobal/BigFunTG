@@ -70,7 +70,7 @@ public class BigFunSDK {
     public final static int SIGN_LOGIN = 1001;
 
     //    private MyBillingImpl myBilling;
-    private GetSignInIntentRequest mGetSignInIntentRequest;
+    private static GetSignInIntentRequest mGetSignInIntentRequest;
     private static JSONObject fbgv = new JSONObject();
 
     //获取时间
@@ -85,9 +85,9 @@ public class BigFunSDK {
 
     static boolean isDebug = false;
 
-    private long mTime;
+    private static long mTime;
     public static Activity mActivity;
-    private String data;
+    private static String data;
     private static final String EVENT_URL = "http://gmgateway.xiaoxiangwan.com:5702/TestAPI/TestAPIDataHandler.ashx?action=sdktestinfo";
 
     private BigFunSDK() {
@@ -101,7 +101,7 @@ public class BigFunSDK {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Keep
-    public void init(Application application, String channelCode) {
+    public static void init(Application application, String channelCode) {
         mTime = System.currentTimeMillis();
         mApplication = application;
         mContext = application.getApplicationContext();
@@ -325,7 +325,7 @@ public class BigFunSDK {
         isDebug = debug;
     }
 
-    private void Googleinit(String clientId) {
+    private static void Googleinit(String clientId) {
         mGetSignInIntentRequest =
                 GetSignInIntentRequest.builder()
                         .setServerClientId(clientId)
@@ -335,11 +335,11 @@ public class BigFunSDK {
     /**
      * @param activity Activity上下文
      */
-    private Activity activity;
+    private static Activity bactivity;
 
     @Keep
-    public void BigFunLogin(Activity activity) {
-        this.activity = activity;
+    public static void BigFunLogin(Activity activity) {
+        bactivity = activity;
         if (checkSdkNotInit()) {
             return;
         }
@@ -355,8 +355,8 @@ public class BigFunSDK {
 
 
     @Keep
-    public SignInClient BigFunIdentity() {
-        return Identity.getSignInClient(activity);
+    public static SignInClient BigFunIdentity() {
+        return Identity.getSignInClient(bactivity);
     }
 
 
@@ -367,7 +367,7 @@ public class BigFunSDK {
      * @param listener       登录回调
      */
     @Keep
-    public void BigFunLogin(Context context, LoginListener listener) {
+    public static void BigFunLogin(Context context, LoginListener listener) {
         if (checkSdkNotInit()) {
             return;
         }
@@ -387,7 +387,7 @@ public class BigFunSDK {
     /**
      * 退出Facebook登录
      */
-    public void BigFunLogout() {
+    public static void BigFunLogout() {
 
         Map<String, Object> map = new HashMap<>();
         map.put("BFLogout_FB", "BFLogout_FB");
@@ -415,7 +415,7 @@ public class BigFunSDK {
      * @param listener    分享回调
      */
     @Keep
-    public void BigFunShare(Context context, ShareContent linkContent, ShareListener listener) {
+    public static void BigFunShare(Context context, ShareContent linkContent, ShareListener listener) {
         if (checkSdkNotInit()) {
             return;
         }
@@ -434,7 +434,7 @@ public class BigFunSDK {
      * @param textContent  设置文本内容
      */
     @Keep
-    public void BigFunShare(Context activity, String textContent) {
+    public static void BigFunShare(Context activity, String textContent) {
         Map<String, Object> map = new HashMap<>();
         map.put("textContent", textContent);
         onEvent(mContext, "BFShare_SYS", map);
@@ -445,7 +445,7 @@ public class BigFunSDK {
     }
 
     @Keep
-    public void BigFunShare(Context activity, Uri shareFileUri) {
+    public static void BigFunShare(Context activity, Uri shareFileUri) {
         Map<String, Object> map = new HashMap<>();
         map.put("shareFileUri", shareFileUri);
         onEvent(mContext, "BFShare_SYS", map);
@@ -462,7 +462,7 @@ public class BigFunSDK {
      */
 
     @Keep
-    public void ShowInterstitialAdLoadAd() {
+    public static void ShowInterstitialAdLoadAd() {
         if (checkSdkNotInit()) {
             return;
         }
@@ -496,7 +496,7 @@ public class BigFunSDK {
      */
 
     @Keep
-    public void ShowRewardedVideo(BFRewardedVideoListener listener) {
+    public static void ShowRewardedVideo(BFRewardedVideoListener listener) {
 
         if (checkSdkNotInit()) {
             return;
@@ -534,7 +534,7 @@ public class BigFunSDK {
      * @param size
      */
     @Keep
-    public void ShowBanner(FrameLayout mBannerParentLayout, AdBFSize size) {
+    public static void ShowBanner(FrameLayout mBannerParentLayout, AdBFSize size) {
         if (checkSdkNotInit()) {
             return;
         }
@@ -564,7 +564,7 @@ public class BigFunSDK {
      */
 
     @Keep
-    public void onDestroy() {
+    public static void onDestroy() {
         if (checkSdkNotInit()) {
             return;
         }
@@ -581,7 +581,7 @@ public class BigFunSDK {
      */
 
     @Keep
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public static void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         LoginModel.onActivityResult(requestCode, resultCode, data);
     }
 
