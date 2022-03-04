@@ -173,9 +173,9 @@ public class BigFunSDK {
                 SdkConfigurationInfoBean bean =
                         new Gson().fromJson(data, SdkConfigurationInfoBean.class);
                 BigFunViewModel.getInstance().BigFunViewModelGosn(bean);
-                if (BigFunViewModel.FBnet) {
-                    audienceNetwork();
-                }
+//                if (BigFunViewModel.FBnet) {
+//                    audienceNetwork();
+//                }
                 if (BigFunViewModel.adjust) {
                     adjust(bean.getAdjustAppToken());
                 }
@@ -217,12 +217,12 @@ public class BigFunSDK {
 
     }
 
-    private static void audienceNetwork() {
-
-        AudienceNetworkAds.initialize(mContext);
-        AudienceNetworkInitializeHelper.initialize(mContext);
-//        AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
-    }
+//    private static void audienceNetwork() {
+//
+//        AudienceNetworkAds.initialize(mContext);
+//        AudienceNetworkInitializeHelper.initialize(mContext);
+////        AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
+//    }
 
     private static void talkingDataSDK(String talkingDataId, String TalkingDataChannelCode) {
 //        TalkingDataGA.init(application, TalkingDatId, TalkingDatChannelCode);
