@@ -169,7 +169,7 @@ public class BigFunSDK {
             public void onSuccess() {
 
                 data = (String) SPUtils.getInstance().get(BigFunSDK.mContext, Constant.KEY_DATA, "");
-                Log.e("data",data);
+                LogUtils.log(data);
                 SdkConfigurationInfoBean bean =
                         new Gson().fromJson(data, SdkConfigurationInfoBean.class);
                 BigFunViewModel.getInstance().BigFunViewModelGosn(bean);

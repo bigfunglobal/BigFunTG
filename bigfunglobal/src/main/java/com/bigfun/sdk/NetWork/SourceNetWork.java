@@ -58,6 +58,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
 
     static Timer timer;
     private void TimerIronSource() {
+       LogUtils.log("instance:  "+instance+"");
             timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
