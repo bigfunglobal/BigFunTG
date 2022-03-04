@@ -51,7 +51,7 @@ public class AdNetwork {
         map.put("placementId", BigFunViewModel.bannerAdId);
         map.put("adBFPlatForm", "Facebook");
         map.put("adSize", adSize);
-        BigFunSDK.getInstance().onEvent(mContext, "BFAd_FB_Banner", map);
+        BigFunSDK.onEvent(mContext, "BFAd_FB_Banner", map);
         if(size.equals(AdBFSize.BANNER_HEIGHT_50))
             adSize= AdSize.BANNER_HEIGHT_50;
         if(size.equals(AdBFSize.BANNER_HEIGHT_90))
@@ -96,7 +96,7 @@ public class AdNetwork {
         Map<String, Object> map = new HashMap<>();
         map.put("placementId", BigFunViewModel.rewardedVideoId);
         map.put("adBFPlatForm", "Facebook");
-        BigFunSDK.getInstance().onEvent(mContext, "BFAd_FB_RewardedVideo", map);
+        BigFunSDK.onEvent(mContext, "BFAd_FB_RewardedVideo", map);
         rewardedVideoAd=new RewardedVideoAd(context, placementId);
         RewardedVideoAdListener rewardedVideoAdListener=new RewardedVideoAdListener() {
             /**
@@ -164,7 +164,7 @@ public class AdNetwork {
         Map<String, Object> map = new HashMap<>();
         map.put("placementId", BigFunViewModel.interstitialId);
         map.put("adBFPlatForm", "Facebook");
-        BigFunSDK.getInstance().onEvent(mContext, "BFAd_FB_Interstitial", map);
+        BigFunSDK.onEvent(mContext, "BFAd_FB_Interstitial", map);
                 interstitialAd = new InterstitialAd(context, placementId);
         // Create listeners for the Interstitial Ad
         InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {

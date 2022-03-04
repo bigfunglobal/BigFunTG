@@ -100,7 +100,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
     public static void showRewardedVideo(BFRewardedVideoListener videolistener) {
         Map<String, Object> map = new HashMap<>();
         map.put("adBFPlatForm", "IronSource");
-        BigFunSDK.getInstance().onEvent(mContext, "BFAd_IS_RewardedVideo", map);
+        BigFunSDK.onEvent(mContext, "BFAd_IS_RewardedVideo", map);
         listener = videolistener;
         if (IronSource.isRewardedVideoAvailable())
             //show rewarded video
@@ -110,7 +110,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
     public static void showInterstitial() {
         Map<String, Object> map = new HashMap<>();
         map.put("adBFPlatForm", "IronSource");
-        BigFunSDK.getInstance().onEvent(mContext, "BFAd_IS_Interstitial", map);
+        BigFunSDK.onEvent(mContext, "BFAd_IS_Interstitial", map);
         if (IronSource.isInterstitialReady()) {
 //                    //show the interstitial
             IronSource.showInterstitial();
@@ -138,7 +138,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
         Map<String, Object> map = new HashMap<>();
         map.put("adBFPlatForm", "IronSource");
         map.put("adSize", size);
-        BigFunSDK.getInstance().onEvent(mContext, "BFAd_IS_Banner", map);
+        BigFunSDK.onEvent(mContext, "BFAd_IS_Banner", map);
         if (size.equals(AdBFSize.BANNER_HEIGHT_50))
             isBannerSize = ISBannerSize.BANNER;
         if (size.equals(AdBFSize.BANNER_HEIGHT_90))

@@ -275,7 +275,7 @@ public class BigFunSDK {
      * @param map     自定义事件的参数及参数取值
      */
     @Keep
-    public void onEvent(Context context, String eventId, Map map) {
+    public static void onEvent(Context context, String eventId, Map map) {
         if (checkSdkNotInit()) {
             return;
         }
@@ -588,7 +588,7 @@ public class BigFunSDK {
     /**
      * 检查是否初始化
      */
-    private boolean checkSdkNotInit() {
+    private static boolean checkSdkNotInit() {
         if (TextUtils.isEmpty(mChannelCode) || mContext == null || !BigFunViewModel.sdk) {
             Log.e("BigFunSDK", "sdk not init");
             return true;
