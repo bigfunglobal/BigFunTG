@@ -58,7 +58,6 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
 
     static Timer timer;
     private void TimerIronSource() {
-        if(instance!=null) {
             timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -71,8 +70,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
                         initIronSource();
                     }
                 }
-            }, 0, 500);
-        }
+            }, 0, 1000);
     }
 
     private void initIronSource() {
