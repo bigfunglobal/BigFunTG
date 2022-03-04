@@ -56,21 +56,23 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
         return instance;
     }
 
-    static Timer timer = new Timer();
+    static Timer timer;
     private void TimerIronSource() {
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                LogUtils.log( "timer: "+"1000");
-                LogUtils.log("mActivity: "+ mActivity+"Ket");
-                if (mActivity != null && !TextUtils.isEmpty(BigFunViewModel.SourceAppKey)) {
-                    LogUtils.log("mActivity123123: "+ mActivity+"Ket"+BigFunViewModel.SourceAppKey);
-                    timer.cancel();
-                    initIronSource();
+        if(instance!=null) {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    LogUtils.log("timer: " + "1000");
+                    LogUtils.log("mActivity: " + mActivity + "Ket");
+                    if (mActivity != null && !TextUtils.isEmpty(BigFunViewModel.SourceAppKey)) {
+                        LogUtils.log("mActivity123123: " + mActivity + "Ket" + BigFunViewModel.SourceAppKey);
+                        timer.cancel();
+                        initIronSource();
+                    }
                 }
-            }
-        }, 0,500);
+            }, 0, 500);
+        }
     }
 
     private void initIronSource() {
