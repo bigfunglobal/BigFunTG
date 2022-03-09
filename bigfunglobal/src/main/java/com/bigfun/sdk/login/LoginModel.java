@@ -1,6 +1,9 @@
 package com.bigfun.sdk.login;
 
 import static com.bigfun.sdk.BigFunSDK.SIGN_LOGIN;
+import static com.bigfun.sdk.BigFunSDK.mActivity;
+import static com.bigfun.sdk.BigFunSDK.mContext;
+import static com.bigfun.sdk.BigFunSDK.onEvent;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,8 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
+import com.bigfun.sdk.LogUtils;
 import com.bigfun.sdk.model.BFLoginModel;
 import com.bigfun.sdk.model.BFShareModel;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -26,8 +31,16 @@ import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
 import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LoginModel {
     private static CallbackManager callbackManager;
@@ -36,6 +49,7 @@ public class LoginModel {
     }
 
     private static LoginModel instance;
+    private static SignInClient signInClient;
 
     public static LoginModel getInstance() {
         if (instance == null) {
@@ -96,8 +110,8 @@ public class LoginModel {
         shareDialog.show(linkContent);
     }
     public static void Login(Activity activity, GetSignInIntentRequest mGetSignInIntentRequest){
-
-        Identity.getSignInClient(activity)
+        signInClient=Identity.getSignInClient(mContext);
+        signInClient
                 .getSignInIntent(mGetSignInIntentRequest)
                 .addOnSuccessListener(
                         result -> {
@@ -119,6 +133,46 @@ public class LoginModel {
                             Log.e("BigFunSDK", "Google Sign-in failed", e);
                         });
     }
+    public static SignInClient BigFunIdentity() {
+        return signInClient;
+    }
+    /**
+     * 退出Facebook登录
+     */
+    public static void BigFunLogout() {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("BFLogout_FB", "BFLogout_FB");
+        onEvent(mContext, "BFLogout_FB", map);
+        //退出google 登录
+        GoogleSignInAccount account =GoogleSignIn.getLastSignedInAccount(mContext);
+        if(account!=null){
+            signOut();
+        }
+        //退出facebook
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        if (isLoggedIn) {
+            //判断Facebook是否登录  如果登录先退出
+            try {
+                LoginManager.getInstance().logOut();
+                AccessToken.setCurrentAccessToken(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private static void signOut() {
+        signInClient.signOut()
+                .addOnCompleteListener(mActivity, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                        LogUtils.log("Google out"+"11111111");
+                    }
+                });
+    }
+
 //    private final void getFacebookInfo(AccessToken accessToken, final IFBLoginListener listener) {
 //        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
 //            @Override

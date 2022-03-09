@@ -25,6 +25,7 @@ import com.bigfun.sdk.NetWork.AdNetwork;
 import com.bigfun.sdk.NetWork.BFRewardedVideoListener;
 import com.bigfun.sdk.NetWork.SourceNetWork;
 
+import com.bigfun.sdk.login.BFAdjustListener;
 import com.bigfun.sdk.login.LoginListener;
 import com.bigfun.sdk.login.LoginModel;
 import com.bigfun.sdk.login.ShareListener;
@@ -207,6 +208,118 @@ public class BigFunSDK {
 
     }
 
+    /**
+     * @param application 上下文 “必填”
+     * @param //channel   短信渠道 “必填” 短信渠道由平台提供
+     * @param channelCode 渠道编码 "必填" 由平台提供
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Keep
+    public static void init(Application application, String channelCode, BFAdjustListener listener) {
+        mTime = System.currentTimeMillis();
+        mApplication = application;
+        mContext = application.getApplicationContext();
+//        mChannel = channel;
+        mChannelCode = channelCode;
+        LoginModel.getInstance();
+        ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
+            @Override
+            public void handlerException(Thread thread, Throwable throwable) {
+                Log.e("SDK", throwable.getMessage());
+            }
+        });
+
+        mApplication.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivityResumed(final Activity activity) {
+                mActivity = activity;
+                if (!isIn)
+                    HttpUtils.getInstance().upload(activity);
+                if (BigFunViewModel.adjust)
+                    Adjust.onResume();
+
+//                IronSource.onResume(activity);
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                mActivity = activity;
+                if (BigFunViewModel.adjust)
+                    Adjust.onPause();
+
+//                IronSource.onPause(activity);
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                mActivity = activity;
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                mActivity = activity;
+            }
+        });
+
+//        myBilling = new MyBillingImpl();
+        HttpUtils.getInstance().bigfunsdk(NetConstant.BINFUN_SDK, mChannelCode, new ResponseListener() {
+            @Override
+            public void onSuccess() {
+
+                data = (String) SPUtils.getInstance().get(BigFunSDK.mContext, Constant.KEY_DATA, "");
+                LogUtils.log(data);
+                SdkConfigurationInfoBean bean =
+                        new Gson().fromJson(data, SdkConfigurationInfoBean.class);
+                BigFunViewModel.getInstance().BigFunViewModelGosn(bean);
+//                if (BigFunViewModel.FBnet) {
+//                    audienceNetwork();
+//                }
+                if (BigFunViewModel.adjust) {
+                    adjust(bean.getAdjustAppToken(), listener);
+                }
+                if (BigFunViewModel.tkdata) {
+                    talkingDataSDK(bean.getTalkingDataAppId(), bean.getChannelName());
+                }
+                if (BigFunViewModel.fblonig || BigFunViewModel.shar) {
+                    facebookSdk();
+                }
+                if (BigFunViewModel.google) {
+                    Googleinit(bean.getGoogleClientId());
+                }
+
+                Log.e("BigFun", "tm init succeeded");
+            }
+
+            @Override
+            public void onFail(String msg) {
+                Log.e("BigFunSDK", msg);
+            }
+
+        });
+
+//        myBilling.initialize(mContext);
+
+//        initLogin();
+        //是否已经归因
+//        LogUtils.log("sdk init success");
+
+    }
 
     private static void facebookSdk() {
 //        if (fblonig || shar)
@@ -214,15 +327,22 @@ public class BigFunSDK {
         FacebookSdk.setAutoInitEnabled(true);
 //        FacebookSdk.setIsDebugEnabled(true);
         FacebookSdk.fullyInitialize();
-
     }
 
-//    private static void audienceNetwork() {
+    //    private static void audienceNetwork() {
 //
 //        AudienceNetworkAds.initialize(mContext);
 //        AudienceNetworkInitializeHelper.initialize(mContext);
 ////        AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
 //    }
+    @Keep
+    public static String getDeviceId() {
+        return TalkingDataSDK.getDeviceId(mContext);
+    }
+    @Keep
+    public static String getOAID() {
+        return TalkingDataSDK.getOAID(mContext);
+    }
 
     private static void talkingDataSDK(String talkingDataId, String TalkingDataChannelCode) {
 //        TalkingDataGA.init(application, TalkingDatId, TalkingDatChannelCode);
@@ -231,7 +351,7 @@ public class BigFunSDK {
         TalkingDataSDK.setReportUncaughtExceptions(true);
     }
 
-    private static void adjust(String adjustAppToken) {
+    private static void adjust(String adjustAppToken, BFAdjustListener listener) {
         AdjustConfig acaaigxc = new AdjustConfig(mApplication, adjustAppToken, AdjustConfig.ENVIRONMENT_PRODUCTION);
         //获取时间
         rgqwtime = xaPhax();
@@ -239,34 +359,19 @@ public class BigFunSDK {
         acaaigxc.setOnAttributionChangedListener(new OnAttributionChangedListener() {
             @Override
             public void onAttributionChanged(AdjustAttribution atibunt) {
-                try {
-//                    fbgv.put("trackerName",atibunt.trackerName);
-                    fbgv.put("network", atibunt.network);
-                    fbgv.put("campaign", atibunt.campaign);
-                    long afterTime = xaPhax();
-                    long sub = afterTime - rgqwtime;
-                    fbgv.put("timesub", sub);
-//                    SharedPreferences sp = application.getSharedPreferences(application.getPackageName() + "_switchvalue", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sp.edit();
-//                    editor.putString("adAttri", fbgv.toString());
-//                    editor.commit();
-//                    TalkingDataEvent.WKeeNM(mContext, "A_Ev_Adgy", "gyInfo", fbgv.toString());
-//                    TalkingDataEvent.WKeeNM(mContext, "A_Ev_Adgy", "attrInfo", atibunt.toString());
-                    LogUtils.log("atibunt: " + fbgv.toString());
-//                    if (sp.getInt("completeRef", 0) == 2) {
-//                        已经获取gogglereffer了
-//                        Log.e("TAGerf", "mkit6: ");
-//                        editor.putInt("completeADJ", 1);
-//                        editor.commit();
-//                        xqnEwo();
-//                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                listener.onAttributionChanged(atibunt);
             }
         });
         Adjust.onCreate(acaaigxc);
 
+    }
+
+    private static void adjust(String adjustAppToken) {
+        AdjustConfig acaaigxc = new AdjustConfig(mApplication, adjustAppToken, AdjustConfig.ENVIRONMENT_PRODUCTION);
+        //获取时间
+        rgqwtime = xaPhax();
+        //获取Adjust的配置数据
+        Adjust.onCreate(acaaigxc);
     }
 
     /**
@@ -335,11 +440,11 @@ public class BigFunSDK {
     /**
      * @param activity Activity上下文
      */
-    private static Activity bactivity;
+
 
     @Keep
     public static void BigFunLogin(Activity activity) {
-        bactivity = activity;
+
         if (checkSdkNotInit()) {
             return;
         }
@@ -356,15 +461,15 @@ public class BigFunSDK {
 
     @Keep
     public static SignInClient BigFunIdentity() {
-        return Identity.getSignInClient(bactivity);
+        return LoginModel.BigFunIdentity();
     }
 
 
     /**
      * facebook登录
      *
-     * @param context        activity或者fragment的context “必填”
-     * @param listener       登录回调
+     * @param context  activity或者fragment的context “必填”
+     * @param listener 登录回调
      */
     @Keep
     public static void BigFunLogin(Context context, LoginListener listener) {
@@ -430,8 +535,8 @@ public class BigFunSDK {
     }
 
     /**
-     * @param activity     必填
-     * @param textContent  设置文本内容
+     * @param activity    必填
+     * @param textContent 设置文本内容
      */
     @Keep
     public static void BigFunShare(Context activity, String textContent) {
@@ -482,7 +587,7 @@ public class BigFunSDK {
 ////            map.put("placementId", BigFunViewModel.interstitialId);
 ////            map.put("adBFPlatForm", "TigerMedia");
 ////            onEvent(mContext, "BFAd_TM_Interstitial", map);
-        if (!BigFunViewModel.TMnet) {
+        if (!BigFunViewModel.ISoure) {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
@@ -519,7 +624,7 @@ public class BigFunSDK {
 //            map.put("adBFPlatForm", "TigerMedia");
 //            onEvent(mContext, "BFAd_TM_RewardsVedio", map);
 //            GoldSource.showRewardedVideo();
-        if (!BigFunViewModel.TMnet) {
+        if (!BigFunViewModel.ISoure) {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
@@ -551,7 +656,7 @@ public class BigFunSDK {
 //            }
 //            AdNetwork.getInstance().adViewLoadAd(mActivity, BigFunViewModel.bannerAdId, mBannerParentLayout, size);
 //        }else if(AdBFPlatForm.TigerMedia.equals(FBPlatForm)) {
-        if (!BigFunViewModel.TMnet) {
+        if (!BigFunViewModel.ISoure) {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }

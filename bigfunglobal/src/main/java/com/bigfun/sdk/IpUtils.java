@@ -21,7 +21,9 @@ public class IpUtils {
         if (index < platforms.length) {
             BufferedReader buff = null;
             HttpURLConnection urlConnection = null;
+
             try {
+
                 URL url = new URL(platforms[index]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
