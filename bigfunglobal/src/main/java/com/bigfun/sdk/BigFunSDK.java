@@ -26,18 +26,12 @@ import com.bigfun.sdk.NetWork.BFRewardedVideoListener;
 import com.bigfun.sdk.NetWork.SourceNetWork;
 
 import com.bigfun.sdk.login.BFAdjustListener;
-import com.bigfun.sdk.login.LoginListener;
 import com.bigfun.sdk.login.LoginModel;
-import com.bigfun.sdk.login.ShareListener;
 import com.bigfun.sdk.model.BigFunViewModel;
 import com.bigfun.sdk.model.SdkConfigurationInfoBean;
 import com.bigfun.sdk.type.AdBFPlatForm;
 import com.bigfun.sdk.type.AdBFSize;
-import com.facebook.AccessToken;
-import com.facebook.FacebookSdk;
 
-import com.facebook.login.LoginManager;
-import com.facebook.share.model.ShareContent;
 
 import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
 import com.google.android.gms.auth.api.identity.Identity;
@@ -108,7 +102,9 @@ public class BigFunSDK {
         mContext = application.getApplicationContext();
 //        mChannel = channel;
         mChannelCode = channelCode;
+
         LoginModel.getInstance();
+
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -324,10 +320,11 @@ public class BigFunSDK {
     private static void facebookSdk() {
 //        if (fblonig || shar)
 //            return;
-        FacebookSdk.setAutoInitEnabled(true);
+//        FacebookSdk.setAutoInitEnabled(true);
 //        FacebookSdk.setIsDebugEnabled(true);
-        FacebookSdk.fullyInitialize();
+//        FacebookSdk.fullyInitialize();
     }
+
 
     //    private static void audienceNetwork() {
 //
@@ -335,6 +332,7 @@ public class BigFunSDK {
 //        AudienceNetworkInitializeHelper.initialize(mContext);
 ////        AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
 //    }
+
     @Keep
     public static String getDeviceId() {
         return TalkingDataSDK.getDeviceId(mContext);
@@ -471,68 +469,48 @@ public class BigFunSDK {
      * @param context  activity或者fragment的context “必填”
      * @param listener 登录回调
      */
-    @Keep
-    public static void BigFunLogin(Context context, LoginListener listener) {
-        if (checkSdkNotInit()) {
-            return;
-        }
-        if (!BigFunViewModel.fblonig) {
-            Log.e("BigFunSDK", "后台未配置 Facebook登录");
-            return;
-        }
-        List<String> permissionList = new ArrayList<>();
-//        permissionList.add("public_profile");
-        permissionList.add("email");
-        Map<String, Object> map = new HashMap<>();
-        map.put("BFLogin_FB", permissionList.toString());
-        onEvent(mContext, "BFLogin_FB", map);
-        LoginModel.facebookLogin(context, permissionList, listener);
-    }
-
-    /**
-     * 退出Facebook登录
-     */
-    public static void BigFunLogout() {
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("BFLogout_FB", "BFLogout_FB");
-        onEvent(mContext, "BFLogout_FB", map);
-        //退出facebook
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        if (isLoggedIn) {
-            //判断Facebook是否登录  如果登录先退出
-            try {
-                LoginManager.getInstance().logOut();
-                AccessToken.setCurrentAccessToken(null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    @Keep
+//    public static void BigFunLogin(Context context, LoginListener listener) {
+//        if (checkSdkNotInit()) {
+//            return;
+//        }
+//        if (!BigFunViewModel.fblonig) {
+//            Log.e("BigFunSDK", "后台未配置 Facebook登录");
+//            return;
+//        }
+//        List<String> permissionList = new ArrayList<>();
+////        permissionList.add("public_profile");
+//        permissionList.add("email");
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("BFLogin_FB", permissionList.toString());
+//        onEvent(mContext, "BFLogin_FB", map);
+//        LoginModel.facebookLogin(context, permissionList, listener);
+//    }
 
 
-    /**
-     * facebook分享
-     *
-     * @param context     activity或者fragment的context “必填”
-     * @param linkContent 分享类型 “必填”
-     * @param listener    分享回调
-     */
-    @Keep
-    public static void BigFunShare(Context context, ShareContent linkContent, ShareListener listener) {
-        if (checkSdkNotInit()) {
-            return;
-        }
-        if (!BigFunViewModel.shar) {
-            Log.e("BigFunSDK", "后台未配置 Facebook分享");
-            return;
-        }
-        Map<String, Object> map = new HashMap<>();
-        map.put("linkContent", linkContent.getPageId());
-        onEvent(mContext, "BFShare_FB", map);
-        LoginModel.facebookShare(context, linkContent, listener);
-    }
+
+
+//    /**
+//     * facebook分享
+//     *
+//     * @param context     activity或者fragment的context “必填”
+//     * @param linkContent 分享类型 “必填”
+//     * @param listener    分享回调
+//     */
+//    @Keep
+//    public static void BigFunShare(Context context, ShareContent linkContent, ShareListener listener) {
+//        if (checkSdkNotInit()) {
+//            return;
+//        }
+//        if (!BigFunViewModel.shar) {
+//            Log.e("BigFunSDK", "后台未配置 Facebook分享");
+//            return;
+//        }
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("linkContent", linkContent.getPageId());
+//        onEvent(mContext, "BFShare_FB", map);
+//        LoginModel.facebookShare(context, linkContent, listener);
+//    }
 
     /**
      * @param activity    必填
@@ -685,10 +663,10 @@ public class BigFunSDK {
      * @param data        “必填”
      */
 
-    @Keep
-    public static void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        LoginModel.onActivityResult(requestCode, resultCode, data);
-    }
+//    @Keep
+//    public static void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        LoginModel.onActivityResult(requestCode, resultCode, data);
+//    }
 
     /**
      * 检查是否初始化

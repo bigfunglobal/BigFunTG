@@ -16,19 +16,8 @@ import androidx.annotation.Nullable;
 
 
 import com.bigfun.sdk.LogUtils;
-import com.bigfun.sdk.model.BFLoginModel;
-import com.bigfun.sdk.model.BFShareModel;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareContent;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.model.SharePhotoContent;
-import com.facebook.share.widget.ShareDialog;
+
+
 import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
@@ -43,14 +32,14 @@ import java.util.List;
 import java.util.Map;
 
 public class LoginModel {
-    private static CallbackManager callbackManager;
+//    private static CallbackManager callbackManager;
     public LoginModel() {
-        callbackManager = CallbackManager.Factory.create();
+//        callbackManager = CallbackManager.Factory.create();
     }
-
+//
     private static LoginModel instance;
     private static SignInClient signInClient;
-
+//
     public static LoginModel getInstance() {
         if (instance == null) {
             synchronized (LoginModel.class) {
@@ -61,54 +50,55 @@ public class LoginModel {
         }
         return instance;
     }
+//
+//    public static final void facebookLogin(Context activity, List<String> permissionList, final LoginListener listener) {
+//
+//        LoginManager.getInstance().logInWithReadPermissions((Activity) activity, permissionList);
+//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+////                Intrinsics.checkNotNullParameter(loginResult, "loginResult");
+////                LoginModel loginModel = LoginModel.this;
+////                AccessToken accessToken = loginResult.getAccessToken();
+////                Intrinsics.checkNotNullExpressionValue(accessToken, "loginResult.accessToken");
+////                loginModel.getFacebookInfo(accessToken, listener);
+//                listener.onComplete(new BFLoginModel(loginResult));
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                listener.onCancel();
+//            }
+//
+//            @Override
+//            public void onError(@NonNull FacebookException e) {
+//                listener.onError(e.getMessage());
+//            }
+//        });
+//    }
+//
+//    public static final void facebookShare(Context context, ShareContent linkContent, final ShareListener listener) {
+//
+//        ShareDialog shareDialog = new ShareDialog((Activity) context);
+//        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+//            @Override
+//            public void onSuccess(Sharer.Result result) {
+//                listener.onComplete(new BFShareModel(result));
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                listener.onCancel();
+//            }
+//
+//            @Override
+//            public void onError(@NonNull FacebookException e) {
+//                listener.onError(e.getMessage());
+//            }
+//        });
+//        shareDialog.show(linkContent);
+//    }
 
-    public static final void facebookLogin(Context activity, List<String> permissionList, final LoginListener listener) {
-
-        LoginManager.getInstance().logInWithReadPermissions((Activity) activity, permissionList);
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-//                Intrinsics.checkNotNullParameter(loginResult, "loginResult");
-//                LoginModel loginModel = LoginModel.this;
-//                AccessToken accessToken = loginResult.getAccessToken();
-//                Intrinsics.checkNotNullExpressionValue(accessToken, "loginResult.accessToken");
-//                loginModel.getFacebookInfo(accessToken, listener);
-                listener.onComplete(new BFLoginModel(loginResult));
-            }
-
-            @Override
-            public void onCancel() {
-                listener.onCancel();
-            }
-
-            @Override
-            public void onError(@NonNull FacebookException e) {
-                listener.onError(e.getMessage());
-            }
-        });
-    }
-
-    public static final void facebookShare(Context context, ShareContent linkContent, final ShareListener listener) {
-
-        ShareDialog shareDialog = new ShareDialog((Activity) context);
-        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-            @Override
-            public void onSuccess(Sharer.Result result) {
-                listener.onComplete(new BFShareModel(result));
-            }
-
-            @Override
-            public void onCancel() {
-                listener.onCancel();
-            }
-
-            @Override
-            public void onError(@NonNull FacebookException e) {
-                listener.onError(e.getMessage());
-            }
-        });
-        shareDialog.show(linkContent);
-    }
     public static void Login(Activity activity, GetSignInIntentRequest mGetSignInIntentRequest){
         signInClient=Identity.getSignInClient(mContext);
         signInClient
@@ -150,17 +140,17 @@ public class LoginModel {
             signOut();
         }
         //退出facebook
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        if (isLoggedIn) {
-            //判断Facebook是否登录  如果登录先退出
-            try {
-                LoginManager.getInstance().logOut();
-                AccessToken.setCurrentAccessToken(null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+//        if (isLoggedIn) {
+//            判断Facebook是否登录  如果登录先退出
+//            try {
+//                LoginManager.getInstance().logOut();
+//                AccessToken.setCurrentAccessToken(null);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
     private static void signOut() {
         signInClient.signOut()
@@ -190,9 +180,9 @@ public class LoginModel {
 //        request.executeAsync();
 //    }
 
-    public static void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
-    }
+//    public static void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
+//
+//    }
 
 }
