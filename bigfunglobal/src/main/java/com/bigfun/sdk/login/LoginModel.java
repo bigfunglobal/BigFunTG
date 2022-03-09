@@ -132,8 +132,8 @@ public class LoginModel {
     public static void BigFunLogout() {
 
         Map<String, Object> map = new HashMap<>();
-        map.put("BFLogout_FB", "BFLogout_FB");
-        onEvent(mContext, "BFLogout_FB", map);
+        map.put("BFLogout", "BFLogout");
+        onEvent(mContext, "BFLogout", map);
         //退出google 登录
         GoogleSignInAccount account =GoogleSignIn.getLastSignedInAccount(mContext);
         if(account!=null){

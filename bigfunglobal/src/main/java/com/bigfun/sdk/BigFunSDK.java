@@ -337,6 +337,7 @@ public class BigFunSDK {
     public static String getDeviceId() {
         return TalkingDataSDK.getDeviceId(mContext);
     }
+
     @Keep
     public static String getOAID() {
         return TalkingDataSDK.getOAID(mContext);
@@ -463,12 +464,12 @@ public class BigFunSDK {
     }
 
 
-    /**
-     * facebook登录
-     *
-     * @param context  activity或者fragment的context “必填”
-     * @param listener 登录回调
-     */
+//    /**
+//     * facebook登录
+//     *
+//     * @param context  activity或者fragment的context “必填”
+//     * @param listener 登录回调
+//     */
 //    @Keep
 //    public static void BigFunLogin(Context context, LoginListener listener) {
 //        if (checkSdkNotInit()) {
@@ -486,9 +487,13 @@ public class BigFunSDK {
 //        onEvent(mContext, "BFLogin_FB", map);
 //        LoginModel.facebookLogin(context, permissionList, listener);
 //    }
+    @Keep
+    public static void BigFunLogout() {
+        LoginModel.BigFunLogout();
+    }
 
-
-
+//    @Keep
+//    public static void
 
 //    /**
 //     * facebook分享
