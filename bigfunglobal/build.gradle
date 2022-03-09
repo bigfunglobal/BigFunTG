@@ -69,8 +69,6 @@ dependencies {
 
     implementation 'com.ironsource.sdk:mediationsdk:7.1.0'
 
-//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.10'
-//    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.5.10'
-//    implementation 'com.android.support:appcompat-v7:24.1.1'
+
 
 }
