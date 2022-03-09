@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.bigfun.sdk.BigFunSDK;
 import com.bigfun.sdk.LogUtils;
 import com.bigfun.sdk.model.BigFunViewModel;
-import com.bigfun.sdk.model.ISPlacement;
+import com.bigfun.sdk.model.FBISPlacement;
 import com.bigfun.sdk.type.AdBFSize;
 import com.ironsource.mediationsdk.ISBannerSize;
 import com.ironsource.mediationsdk.IronSource;
@@ -237,7 +237,7 @@ public class SourceNetWork implements RewardedVideoListener, InterstitialListene
     public void onRewardedVideoAdRewarded(Placement placement) {
         //当视频得到奖励并且可以给用户奖励时调用
          LogUtils.log( "onRewardedVideoAdRewarded" + " " + placement);
-        listener.onRewardedVideoAdRewarded(new ISPlacement(placement));
+        listener.onRewardedVideoAdRewarded(new FBISPlacement(placement));
     }
 
     @Override
