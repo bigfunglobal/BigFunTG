@@ -61,22 +61,23 @@
 -keep class com.just.agentweb.** {
     *;
 }
+-dontwarn com.just.agentweb.**
 
-#-dontwarn com.just.agentweb.**
+-dontwarn okhttp3.**
 
-#-dontwarn okhttp3.**
-
-#-dontwarn okio.**
+-dontwarn okio.**
 -keep class okio.**{*;}
 
 
 
 -keep class com.tendcloud.tenddata.** { *; }
 
-#-dontwarn com.google.gson.**
+-dontwarn com.google.gson.**
 -keep class com.google.gson.**{*;}
 -keep interface com.google.gson.**{*;}
 
+-dontwarn com.paytm.pgsdk.**
+-keep class com.paytm.pgsdk.** {*;}
 
 -keepclassmembers class **.R$* {
   *;
@@ -85,13 +86,13 @@
 -keep class com.google.android.gms.common.ConnectionResult {
     int SUCCESS;
 }
-#-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient {
-#    com.google.android.gms.ads.identifier.AdvertisingIdClient$Info getAdvertisingIdInfo(android.content.Context);
-#}
-#-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient$Info {
-#    java.lang.String getId();
-#    boolean isLimitAdTrackingEnabled();
-#}
+-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient {
+    com.google.android.gms.ads.identifier.AdvertisingIdClient$Info getAdvertisingIdInfo(android.content.Context);
+}
+-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient$Info {
+    java.lang.String getId();
+    boolean isLimitAdTrackingEnabled();
+}
 -keep public class com.android.installreferrer.** { *; }
 
 
@@ -99,14 +100,14 @@
 #<基础>
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
-
+-keep public class * extends android.support.multidex.MultiDexApplication
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
-
+-keep public class com.android.vending.licensing.ILicensingService
 
 -keep class android.support.** {*;}
 
@@ -124,6 +125,7 @@ void onAdError(*);
 }
 
 
+
 -keepclassmembers class com.bigfun.sdk.BigFunSDK{
 #public static void init(*);
 #public static void getSwitch(*);
@@ -136,7 +138,7 @@ void onAdError(*);
 # 指定不去忽略非公共的库类(不跳过library中的非public的类)
 -dontskipnonpubliclibraryclasses
 # 指定不去忽略包可见的库类的成员
-#-dontskipnonpubliclibraryclassmembers
+-dontskipnonpubliclibraryclassmembers
 #不进行优化，建议使用此选项，
 -dontoptimize
  # 不进行预校验,Android不需要,可加快混淆速度。
