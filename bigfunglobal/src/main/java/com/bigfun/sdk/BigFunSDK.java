@@ -21,7 +21,7 @@ import com.adjust.sdk.AdjustAttribution;
 import com.adjust.sdk.AdjustConfig;
 import com.adjust.sdk.OnAttributionChangedListener;
 
-import com.bigfun.sdk.NetWork.AdNetwork;
+
 import com.bigfun.sdk.NetWork.BFRewardedVideoListener;
 import com.bigfun.sdk.NetWork.SourceNetWork;
 
@@ -35,7 +35,7 @@ import com.bigfun.sdk.type.AdBFPlatForm;
 import com.bigfun.sdk.type.AdBFSize;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
-import com.facebook.ads.AudienceNetworkAds;
+
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareContent;
 

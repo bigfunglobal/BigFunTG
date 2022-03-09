@@ -2,8 +2,7 @@ package com.bigfun.sdk.type;
 
 import androidx.annotation.StringDef;
 
-import com.facebook.ads.Ad;
-import com.facebook.ads.AdSize;
+
 import com.ironsource.mediationsdk.ISBannerSize;
 
 import java.lang.annotation.Retention;
