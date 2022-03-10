@@ -23,6 +23,8 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.bigfun.sdk.login.LoginModel;
+import com.google.android.gms.auth.api.identity.SignInClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,18 @@ public class MyBillingImpl implements PurchasesUpdatedListener, SkuDetailsRespon
     public MyBillingImpl() {
 
     }
-
+    private static MyBillingImpl instance;
+    //
+    public static MyBillingImpl getInstance() {
+        if (instance == null) {
+            synchronized (MyBillingImpl.class) {
+                if (instance == null) {
+                    instance = new MyBillingImpl();
+                }
+            }
+        }
+        return instance;
+    }
     //初始化
     public void initialize(Context context) {
 

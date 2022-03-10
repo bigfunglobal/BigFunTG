@@ -22,9 +22,16 @@ import com.adjust.sdk.AdjustConfig;
 import com.adjust.sdk.OnAttributionChangedListener;
 
 
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.SkuDetails;
 import com.bigfun.sdk.NetWork.BFRewardedVideoListener;
 import com.bigfun.sdk.NetWork.SourceNetWork;
 
+import com.bigfun.sdk.google.GoogleCommodityListener;
+import com.bigfun.sdk.google.GoogleConsumePurchaseListener;
+import com.bigfun.sdk.google.GoogleQueryPayListener;
+import com.bigfun.sdk.google.GoogleQueryPurchaseListener;
+import com.bigfun.sdk.google.MyBillingImpl;
 import com.bigfun.sdk.login.BFAdjustListener;
 import com.bigfun.sdk.login.LoginModel;
 import com.bigfun.sdk.model.BigFunViewModel;
@@ -104,7 +111,7 @@ public class BigFunSDK {
         mChannelCode = channelCode;
 
         LoginModel.getInstance();
-
+        MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -218,6 +225,7 @@ public class BigFunSDK {
 //        mChannel = channel;
         mChannelCode = channelCode;
         LoginModel.getInstance();
+        MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -419,6 +427,8 @@ public class BigFunSDK {
 //        myBilling.googlepay(activity, premium_upgrade, googlePayUpdatedListener);
 //    }
 
+
+
     /**
      * 设置是否是Debug模式
      *
@@ -492,8 +502,44 @@ public class BigFunSDK {
         LoginModel.BigFunLogout();
     }
 
-//    @Keep
-//    public static void
+    /**
+     *内购商品的展示
+     * @param googleCommodityListener
+     */
+    @Keep
+    public static void googleQueryPay(GoogleCommodityListener googleCommodityListener){
+        MyBillingImpl.getInstance().googleQueryPay(googleCommodityListener);
+    }
+
+    /**
+     * 已购买的未消费的商品
+     * @param queryPurchaseListener
+     */
+    @Keep
+    public static void googleQueryPurchase(GoogleQueryPurchaseListener queryPurchaseListener){
+        MyBillingImpl.getInstance().googleQueryPurchase(queryPurchaseListener);
+    }
+
+    /**
+     * 内购商品的购买，回调确认购买
+     * @param activity
+     * @param skuDetails
+     * @param googleQueryPayListener
+     */
+    @Keep
+    public static void initiatePurchaseFlow(Activity activity, final SkuDetails skuDetails, GoogleQueryPayListener googleQueryPayListener){
+        MyBillingImpl.getInstance().initiatePurchaseFlow(activity,skuDetails,googleQueryPayListener);
+    }
+
+    /**
+     * 消费购买的商品
+     * @param purchase
+     * @param purchaseListener
+     */
+    @Keep
+    public static void consumePurchase(Purchase purchase, GoogleConsumePurchaseListener purchaseListener){
+        MyBillingImpl.getInstance().consumePurchase(purchase,purchaseListener);
+    }
 
 //    /**
 //     * facebook分享

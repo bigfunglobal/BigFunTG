@@ -58,10 +58,6 @@
 -keep class com.android.billingclient.**{*;}
 -keep public class * extends android.app.Activity
 
--keep class com.just.agentweb.** {
-    *;
-}
--dontwarn com.just.agentweb.**
 
 -dontwarn okhttp3.**
 

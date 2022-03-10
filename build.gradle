@@ -23,7 +23,6 @@ allprojects {
 //            //IronSource
             url "https://android-sdk.is.com/"
         }
-//        maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
     }
 
 }
