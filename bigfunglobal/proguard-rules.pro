@@ -72,8 +72,6 @@
 -keep class com.google.gson.**{*;}
 -keep interface com.google.gson.**{*;}
 
--dontwarn com.paytm.pgsdk.**
--keep class com.paytm.pgsdk.** {*;}
 
 -keepclassmembers class **.R$* {
   *;
@@ -91,8 +89,6 @@
 }
 -keep public class com.android.installreferrer.** { *; }
 
-
--keep public class com.android.installreferrer.** { *; }
 #<基础>
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
@@ -108,7 +104,7 @@
 -keep class android.support.** {*;}
 
 
-#-keep class com.bigfun.sdk.**{ *; }
+#-keep class com.integrate.unified.sdk.**{ *; }
 
 -keep enum *{
  *;
@@ -117,12 +113,12 @@
  *;
 }
 -keep interface *{
-void onAdError(*);
+*;
 }
 
 
 
--keepclassmembers class com.bigfun.sdk.BigFunSDK{
+-keepclassmembers class com.integrate.unified.LzWuSuptLoad{
 #public static void init(*);
 #public static void getSwitch(*);
 #public static void PlCFEe(*);

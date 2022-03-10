@@ -24,8 +24,8 @@ allprojects {
             url "https://android-sdk.is.com/"
         }
     }
-
 }
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
