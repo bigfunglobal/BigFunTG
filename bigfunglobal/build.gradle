@@ -62,26 +62,26 @@ dependencies {
 
 //    implementation 'com.ironsource.sdk:mediationsdk:7.1.0'
     implementation files('libs\\SaaS_GameAnalytics_Android_SDK_V4.0.68.jar')
-    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32'
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
     implementation 'com.google.android.gms:play-services-basement:17.1.1'
 }
-//task makeJar(type: Copy) {
-//    //删除存在的
-//    delete 'build/mysdk.jar'
-//    //设置拷贝的文件
-//    from('build/intermediates/javac/release/')
-//    //打进jar包后的文件目录
-//    into('build/')
-//    //将classes.jar放入build/libs/目录下
-//    //include ,exclude参数来设置过滤
-//    //（我们只关心classes.jar这个文件）
-//    include('classes.jar')
-//    //重命名
-//    rename ('classes.jar', 'mysdk.jar')
-//}
-//makeJar.dependsOn(build)
+task makeJar(type: Copy) {
+    //删除存在的
+    delete 'build/mysdk.jar'
+    //设置拷贝的文件
+    from('build/intermediates/javac/release/')
+    //打进jar包后的文件目录
+    into('build/')
+    //将classes.jar放入build/libs/目录下
+    //include ,exclude参数来设置过滤
+    //（我们只关心classes.jar这个文件）
+    include('classes.jar')
+    //重命名
+    rename ('classes.jar', 'mysdk.jar')
+}
+makeJar.dependsOn(build)
