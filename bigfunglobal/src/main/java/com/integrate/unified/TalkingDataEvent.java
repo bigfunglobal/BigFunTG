@@ -1,12 +1,9 @@
 package com.integrate.unified;
 
-
-
-
-
 import android.content.Context;
 
-import com.tendcloud.tenddata.TalkingDataSDK;
+
+import com.tendcloud.tenddata.TalkingDataGA;
 
 import java.util.Map;
 
@@ -18,6 +15,16 @@ public class TalkingDataEvent {
      */
     public static void WKeeNM(Context context, String eventId,Map map) {
 
-        TalkingDataSDK.onEvent(context,eventId,0.0, map);
+        TalkingDataGA.onEvent(context,eventId, map);
+    }
+
+    public static void WKeeNM(String eventId) {
+
+        TalkingDataGA.onEvent(eventId);
+    }
+
+    public static void WKeeNM(String eventId,Map map) {
+
+        TalkingDataGA.onEvent(eventId,map);
     }
 }

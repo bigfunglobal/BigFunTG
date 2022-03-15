@@ -1,8 +1,10 @@
 package com.integrate.unified.mphqzrzwd;
 import android.text.TextUtils;
 
+
+import com.integrate.unified.LogUtils;
 import com.integrate.unified.LzWuSuptLoad;
-import com.integrate.unified.adjoelakqw.SourceNetWork;
+
 
 
 public class BigFunViewModel {
@@ -41,7 +43,8 @@ public class BigFunViewModel {
         if (!TextUtils.isEmpty(bean.getAdsType())&&bean.getAdsType().contains("1")&&!TextUtils.isEmpty(bean.getIronSourceAppKey())) {
             ISoure=true;
             SourceAppKey=bean.getIronSourceAppKey();
-            SourceNetWork.getInstance().TimerIronSource();
+
+//            SourceNetWork.getInstance().TimerIronSource();
 //            FBnet=true;
 //            if (!TextUtils.isEmpty(bean.getBannerAdId())) {
 //                bannerAdId = bean.getPlacementIdProduction();

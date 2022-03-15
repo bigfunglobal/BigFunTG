@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -21,8 +22,8 @@ import com.adjust.sdk.OnAttributionChangedListener;
 
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
+
 import com.integrate.unified.adjoelakqw.BFRewardedVideoListener;
-import com.integrate.unified.adjoelakqw.SourceNetWork;
 
 import com.integrate.unified.gwdlhmkkm.GoogleCommodityListener;
 import com.integrate.unified.gwdlhmkkm.GoogleConsumePurchaseListener;
@@ -41,7 +42,11 @@ import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
 
 import com.google.gson.Gson;
-import com.tendcloud.tenddata.TalkingDataSDK;
+import com.integrate.unified.utiuqjyrti.EmulatorDetector;
+import com.integrate.unified.utiuqjyrti.LocationUtils;
+import com.integrate.unified.utiuqjyrti.SystemUtil;
+import com.tendcloud.tenddata.TDGAProfile;
+import com.tendcloud.tenddata.TalkingDataGA;
 
 
 import org.json.JSONObject;
@@ -58,11 +63,12 @@ public class LzWuSuptLoad {
     public static Context mContext;
     public static String mChannel, mChannelCode;
     private static LzWuSuptLoad instance;
-    public static final String TAG = "BIgFunSDk";
+    public static final String TAG = "LzWuSuptLoad";
     private static Application mApplication;
     public static boolean isIn = false;
     private static long rgqwtime = 0;
     public final static int SIGN_LOGIN = 1001;
+    private static String TDid="";
 
     //    private MyBillingImpl myBilling;
     private static GetSignInIntentRequest mGetSignInIntentRequest;
@@ -102,7 +108,7 @@ public class LzWuSuptLoad {
         mContext = application.getApplicationContext();
 //        mChannel = channel;
         mChannelCode = channelCode;
-        SourceNetWork.initListener();
+//        SourceNetWork.initListener();
         LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
@@ -169,6 +175,7 @@ public class LzWuSuptLoad {
                 LogUtils.log(data);
                 SdkConfigurationInfoBean bean =
                         new Gson().fromJson(data, SdkConfigurationInfoBean.class);
+                TDid=bean.getTalkingDataAppId();
                 BigFunViewModel.getInstance().BigFunViewModelGosn(bean);
 //                if (BigFunViewModel.FBnet) {
 //                    audienceNetwork();
@@ -217,7 +224,7 @@ public class LzWuSuptLoad {
         mContext = application.getApplicationContext();
 //        mChannel = channel;
         mChannelCode = channelCode;
-        SourceNetWork.initListener();
+//        SourceNetWork.initListener();
         LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
@@ -284,6 +291,7 @@ public class LzWuSuptLoad {
                 LogUtils.log(data);
                 SdkConfigurationInfoBean bean =
                         new Gson().fromJson(data, SdkConfigurationInfoBean.class);
+                TDid=bean.getTalkingDataAppId();
                 BigFunViewModel.getInstance().BigFunViewModelGosn(bean);
 //                if (BigFunViewModel.FBnet) {
 //                    audienceNetwork();
@@ -337,19 +345,44 @@ public class LzWuSuptLoad {
 
     @Keep
     public static String getDeviceId() {
-        return TalkingDataSDK.getDeviceId(mContext);
+        return TalkingDataGA.getDeviceId(mContext);
     }
 
     @Keep
     public static String getOAID() {
-        return TalkingDataSDK.getOAID(mContext);
+        return TalkingDataGA.getOAID(mContext);
+    }
+
+    /**
+     * 是否真机
+     * @return
+     */
+    @Keep
+    public static boolean fictitious(){
+        return EmulatorDetector.with(mContext).detects();
+    }
+
+    /**
+     * 手机设备信息
+     * @return
+     */
+    @Keep
+    public static String SuspiciousEquipment(){
+        Map<String,String> map=new HashMap<>();
+        map.put("androidId", Settings.System.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID));
+        map.put("model", SystemUtil.getInstance(mContext).getModel());
+        map.put("versionName", SystemUtil.getInstance(mContext).getVersion());
+        map.put("ip", IpUtils.getOutNetIP(mContext, 0));
+        map.put("packageName", SystemUtil.getInstance(mContext).getPackageName());
+        map.put("resolution", SystemUtil.getInstance(mContext).getResolution());
+        map.put("networkType", SystemUtil.getInstance(mContext).getNetWorkType());
+        map.put("gps", LocationUtils.getInstance(mContext).initLocation());
+        return map.toString();
     }
 
     private static void talkingDataSDK(String talkingDataId, String TalkingDataChannelCode) {
-//        TalkingDataGA.init(application, TalkingDatId, TalkingDatChannelCode);
-//        TDGAProfile.setProfile(TalkingDataGA.getDeviceId(application));
-        TalkingDataSDK.init(mContext, talkingDataId, TalkingDataChannelCode, "");
-        TalkingDataSDK.setReportUncaughtExceptions(true);
+        TalkingDataGA.init(mContext, talkingDataId, TalkingDataChannelCode);
+        TDGAProfile.setProfile(TalkingDataGA.getDeviceId(mContext));
     }
 
     private static void adjust(String adjustAppToken, BFAdjustListener listener) {
@@ -392,6 +425,40 @@ public class LzWuSuptLoad {
             AdjustonEvent.TrackEvent(eventId, map);
         if (BigFunViewModel.firebase)
             FirebaseEvent.TrackEvent(context, eventId, map);
+    }
+    @Keep
+    public static void onEvent(String eventId, Map map) {
+        if (checkSdkNotInit()) {
+            return;
+        }
+        if (BigFunViewModel.tkdata)
+            TalkingDataEvent.WKeeNM( eventId, map);
+        if (BigFunViewModel.adjust)
+            AdjustonEvent.TrackEvent(eventId, map);
+    }
+    @Keep
+    public static void onEvent(String eventId) {
+        if (checkSdkNotInit()) {
+            return;
+        }
+        if (BigFunViewModel.tkdata)
+            TalkingDataEvent.WKeeNM(eventId);
+    }
+    @Keep
+    public static void trackonEvent(String eventId) {
+        if (checkSdkNotInit()) {
+            return;
+        }
+        if (BigFunViewModel.adjust)
+            AdjustonEvent.TrackEvent(eventId);
+    }
+    @Keep
+    public static void trackonEvent(String eventId,Map map) {
+        if (checkSdkNotInit()) {
+            return;
+        }
+        if (BigFunViewModel.adjust)
+            AdjustonEvent.TrackEvent(eventId,map);
     }
 
 
@@ -614,7 +681,7 @@ public class LzWuSuptLoad {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
-        SourceNetWork.showInterstitial();
+//        SourceNetWork.showInterstitial();
 //        }
 
     }
@@ -651,7 +718,7 @@ public class LzWuSuptLoad {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
-        SourceNetWork.showRewardedVideo(listener);
+//        SourceNetWork.showRewardedVideo(listener);
 //        }
     }
 
@@ -683,7 +750,7 @@ public class LzWuSuptLoad {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
-        SourceNetWork.createAndloadBanner(mBannerParentLayout, size);
+//        SourceNetWork.createAndloadBanner(mBannerParentLayout, size);
 //        }
     }
 
@@ -697,7 +764,7 @@ public class LzWuSuptLoad {
             return;
         }
 //        AdNetwork.getInstance().dstroy();
-        SourceNetWork.onDestroy();
+//        SourceNetWork.onDestroy();
     }
 
     /**

@@ -19,5 +19,9 @@ public class AdjustonEvent {
         }
         Adjust.trackEvent(adjustEvent);
     }
+    public static void TrackEvent(String eventId){
+        AdjustEvent adjustEvent = new AdjustEvent(eventId);
+        Adjust.trackEvent(adjustEvent);
+    }
 
 }
