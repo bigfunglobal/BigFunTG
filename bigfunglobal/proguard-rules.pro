@@ -104,7 +104,7 @@
 -keep class android.support.** {*;}
 
 
-#-keep class com.integrate.unified.sdk.**{ *; }
+-keep class com.integrate.unified.sdk.**{ *; }
 
 -keep enum *{
  *;
