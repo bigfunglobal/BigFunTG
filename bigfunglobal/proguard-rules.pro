@@ -53,6 +53,8 @@
 # # 包含有类名->混淆后类名的映射关系
 #-verbose
 -keep class com.adjust.sdk.** { *; }
+-keep class com.goldsource.sdk.** { *; }
+-keep class com.ironsource.mediationsdk.** { *; }
 -keep class okhttp3.**{*;}
 -keep final class okhttp3.**{*;}
 -keep class com.android.billingclient.**{*;}
