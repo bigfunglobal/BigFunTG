@@ -194,7 +194,7 @@ public class LzWuSuptLoad {
                 if (BigFunViewModel.google) {
                     Googleinit(bean.getGoogleClientId());
                 }
-                GoldSource.initialize(mContext, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
+                GoldSource.initialize(mApplication, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
                     @Override
                     public void onInitializationCompleted() {
                         Log.d(TAG, "tm init succeeded");
