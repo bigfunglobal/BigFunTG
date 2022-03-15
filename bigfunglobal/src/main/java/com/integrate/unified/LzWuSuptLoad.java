@@ -690,7 +690,7 @@ public class LzWuSuptLoad {
         }
 //        SourceNetWork.showInterstitial();
 //        }
-
+        GoldSource.showInterstitial();
     }
 
     /**
@@ -725,6 +725,7 @@ public class LzWuSuptLoad {
             Log.e("BigFunSDK", "后台未配置 IronSource 广告");
             return;
         }
+        GoldSource.showRewardedVideo();
 //        SourceNetWork.showRewardedVideo(listener);
 //        }
     }
