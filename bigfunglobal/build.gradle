@@ -65,10 +65,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32'
+//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
+//    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32'
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
-    implementation 'com.google.android.gms:play-services-basement:17.1.1'
+//    implementation 'com.google.android.gms:play-services-basement:17.1.1'
 }
 //task makeJar(type: Copy) {
 //    //删除存在的
