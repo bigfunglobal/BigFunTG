@@ -61,25 +61,75 @@ dependencies {
 
 //    implementation 'com.ironsource.sdk:mediationsdk:7.1.0'
     implementation files('libs\\SaaS_GameAnalytics_Android_SDK_V4.0.68.jar')
-    implementation files('libs\\tm-d120.aar')
+
 //    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
 //    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
-//    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32'
     implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
-//    implementation 'com.google.android.gms:play-services-basement:17.1.1'
+    implementation 'com.google.android.gms:play-services-basement:17.1.1'
+    implementation files('libs\\tm-d120.jar')
 }
-task makeJar(type: Copy) {
+// 把所有依赖的 aar 包中包含的 classes.jar
+// 都拷贝到 build/outputs/aar/libs下，并重命名以不被覆盖
+//task syncAllAars(dependsOn:':bigfunglobal:assemble') {
+//    def jarName
+//    def aarPath
+//    def destDir = buildDir.getPath()+"/outputs/aar"
+//    // 使用了绝对路径，需要根据实际情况调整
+//    def dir = new File('E:\\AndroidStudioProjects\\BigFunTG\\bigfunglobal\\libs')
+//    files(dir.listFiles()).each { file ->
+//        aarPath = file.absolutePath
+//
+//        if (file.name.endsWith('.aar')) {
+//            jarName = "libs/" + file.name.replace(".aar",".jar")
+//            copy {
+//                from zipTree(aarPath)
+//                into destDir
+//                include "**/*"
+//                rename 'classes.jar', jarName
+//            }
+//        }
+//    }
+//}
+//// 将多个 jar 包打包成一个 classes.jar
+//task makeJar(type: Jar) {
+//    archiveName = 'classes.jar'
+//    def dir = new File(buildDir.getPath()+"/outputs/aar/libs")
+//    files(dir.listFiles()).each { file ->
+//
+//        if (file.name.endsWith('.jar')) {
+//            from (project.zipTree(file.absolutePath))
+//        }
+//    }
+//    destinationDirectory = file(buildDir.getPath()+"/outputs/aar")
+//}
+//task fataar(dependsOn:[syncAllAars, makeJar]) {
+//}
+////生成最终 aar 包，libs 目录需要被排除
+//task genAar(dependsOn:[fataar], type: Zip) {
+//    def destDir = buildDir.getPath()+"/outputs/aar"
+//    baseName "wholeSDK"
+//    extension "aar"
+//    version '1.1'
+//    destinationDirectory = file('libs/')
+//    from destDir
+//    exclude "libs"
+//}
 
-    //设置拷贝的文件
-    from('build/intermediates/javac/release/')
-    //打进jar包后的文件目录
-    into('build/')
-    //将classes.jar放入build/libs/目录下
-    //include ,exclude参数来设置过滤
-    //（我们只关心classes.jar这个文件）
-    include('classes.jar')
-    //重命名
-}
-makeJar.dependsOn(build)
+
+
+//task makeJar(type: Copy) {
+//
+//    //设置拷贝的文件
+//    from('build/intermediates/javac/release/')
+//    //打进jar包后的文件目录
+//    into('build/')
+//    //将classes.jar放入build/libs/目录下
+//    //include ,exclude参数来设置过滤
+//    //（我们只关心classes.jar这个文件）
+//    include('classes.jar')
+//    //重命名
+//}
+//makeJar.dependsOn(build)
