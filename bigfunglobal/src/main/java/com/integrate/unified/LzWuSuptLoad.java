@@ -27,6 +27,7 @@ import com.goldsource.sdk.GoldListener;
 import com.goldsource.sdk.GoldSource;
 import com.integrate.unified.adjoelakqw.BFRewardedVideoListener;
 
+import com.integrate.unified.adjoelakqw.TMNetWork;
 import com.integrate.unified.gwdlhmkkm.GoogleCommodityListener;
 import com.integrate.unified.gwdlhmkkm.GoogleConsumePurchaseListener;
 import com.integrate.unified.gwdlhmkkm.GoogleQueryPayListener;
@@ -111,6 +112,7 @@ public class LzWuSuptLoad {
 //        mChannel = channel;
         mChannelCode = channelCode;
 //        SourceNetWork.initListener();
+        TMNetWork.init();
         LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
@@ -194,12 +196,14 @@ public class LzWuSuptLoad {
                 if (BigFunViewModel.google) {
                     Googleinit(bean.getGoogleClientId());
                 }
-                GoldSource.initialize(mApplication, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
-                    @Override
-                    public void onInitializationCompleted() {
-                        Log.d(TAG, "tm init succeeded");
-                    }
-                });
+                if(!TextUtils.isEmpty(bean.getIronSourceAppKey())) {
+                    GoldSource.initialize(mApplication, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
+                        @Override
+                        public void onInitializationCompleted() {
+                            Log.d(TAG, "tm init succeeded");
+                        }
+                    });
+                }
                 Log.e("BigFun", "tm init succeeded");
             }
 
@@ -232,6 +236,7 @@ public class LzWuSuptLoad {
 //        mChannel = channel;
         mChannelCode = channelCode;
 //        SourceNetWork.initListener();
+        TMNetWork.init();
         LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
@@ -430,8 +435,8 @@ public class LzWuSuptLoad {
             TalkingDataEvent.WKeeNM(context, eventId, map);
         if (BigFunViewModel.adjust)
             AdjustonEvent.TrackEvent(eventId, map);
-        if (BigFunViewModel.firebase)
-            FirebaseEvent.TrackEvent(context, eventId, map);
+//        if (BigFunViewModel.firebase)
+//            FirebaseEvent.TrackEvent(context, eventId, map);
     }
     @Keep
     public static void onEvent(String eventId, Map map) {
@@ -685,12 +690,12 @@ public class LzWuSuptLoad {
 ////            map.put("adBFPlatForm", "TigerMedia");
 ////            onEvent(mContext, "BFAd_TM_Interstitial", map);
         if (!BigFunViewModel.ISoure) {
-            Log.e("BigFunSDK", "后台未配置 IronSource 广告");
+            Log.e("BigFunSDK", "后台未配置 广告");
             return;
         }
 //        SourceNetWork.showInterstitial();
 //        }
-        GoldSource.showInterstitial();
+        TMNetWork.showInterstitial();
     }
 
     /**
@@ -722,10 +727,42 @@ public class LzWuSuptLoad {
 //            onEvent(mContext, "BFAd_TM_RewardsVedio", map);
 //            GoldSource.showRewardedVideo();
         if (!BigFunViewModel.ISoure) {
-            Log.e("BigFunSDK", "后台未配置 IronSource 广告");
+            Log.e("BigFunSDK", "后台未配置 广告");
             return;
         }
-        GoldSource.showRewardedVideo();
+        TMNetWork.showRewardedVideo(listener);
+//        SourceNetWork.showRewardedVideo(listener);
+//        }
+    }
+    @Keep
+    public static void ShowRewardedVideo( ) {
+
+        if (checkSdkNotInit()) {
+            return;
+        }
+//        FBPlatForm=Distribution_es.RandomMooncake(BigFunViewModel.incentiveVideoFB,BigFunViewModel.incentiveVideoTM);
+//        if(!BigFunViewModel.FBnet){
+//            Log.e("BigFunSDK","后台未配置 Facebook 广告");
+//            return;
+//        }
+//        if(!TextUtils.isEmpty(BigFunViewModel.rewardedVideoId)) {
+//            Log.e("BigFunSDK", "后台未配置 奖励式视频广告 id");
+//            return;
+//        }
+//
+//        if(AdBFPlatForm.Facebook.equals(FBPlatForm)) {
+//            AdNetwork.getInstance().rewardedVideoLoadAd(mActivity, BigFunViewModel.rewardedVideoId, listener);
+//        }else if(AdBFPlatForm.TigerMedia.equals(FBPlatForm)){
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("placementId", BigFunViewModel.rewardedVideoId);
+//            map.put("adBFPlatForm", "TigerMedia");
+//            onEvent(mContext, "BFAd_TM_RewardsVedio", map);
+//            GoldSource.showRewardedVideo();
+        if (!BigFunViewModel.ISoure) {
+            Log.e("BigFunSDK", "后台未配置 广告");
+            return;
+        }
+        TMNetWork.showRewardedVideo();
 //        SourceNetWork.showRewardedVideo(listener);
 //        }
     }

@@ -58,6 +58,7 @@ public class BigFunViewModel {
         }
         if (!TextUtils.isEmpty(bean.getAdsType())&&bean.getAdsType().contains("2")) {
             TMnet=true;
+
         }
 
         if (!TextUtils.isEmpty(bean.getLoginType()) && bean.getLoginType().contains("1")) {
