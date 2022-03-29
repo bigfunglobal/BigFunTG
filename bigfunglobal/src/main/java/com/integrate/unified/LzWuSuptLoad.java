@@ -23,8 +23,7 @@ import com.adjust.sdk.OnAttributionChangedListener;
 //import com.android.billingclient.api.Purchase;
 //import com.android.billingclient.api.SkuDetails;
 
-import com.goldsource.sdk.GoldListener;
-import com.goldsource.sdk.GoldSource;
+
 import com.integrate.unified.adjoelakqw.BFRewardedVideoListener;
 
 //import com.integrate.unified.adjoelakqw.TMNetWork;
@@ -196,14 +195,14 @@ public class LzWuSuptLoad {
                 if (BigFunViewModel.google) {
 //                    Googleinit(bean.getGoogleClientId());
                 }
-                if(!TextUtils.isEmpty(bean.getIronSourceAppKey())) {
-                    GoldSource.initialize(mApplication, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
-                        @Override
-                        public void onInitializationCompleted() {
-                            Log.d(TAG, "tm init succeeded");
-                        }
-                    });
-                }
+//                if(!TextUtils.isEmpty(bean.getIronSourceAppKey())) {
+//                    GoldSource.initialize(mApplication, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
+//                        @Override
+//                        public void onInitializationCompleted() {
+//                            Log.d(TAG, "tm init succeeded");
+//                        }
+//                    });
+//                }
                 Log.e("BigFun", "tm init succeeded");
             }
 
