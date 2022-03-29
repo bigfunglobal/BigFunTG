@@ -3,7 +3,6 @@ package com.integrate.unified.mphqzrzwd;
 import androidx.annotation.Keep;
 
 import com.ironsource.mediationsdk.model.Placement;
-import com.ironsource.mediationsdk.model.PlacementAvailabilitySettings;
 @Keep
 public class FBISPlacement {
     private int mPlacementId;
@@ -11,7 +10,7 @@ public class FBISPlacement {
     private boolean mIsDefault;
     private String mRewardName;
     private int mRewardAmount;
-    private PlacementAvailabilitySettings mPlacementAvailabilitySettings;
+
 
     public FBISPlacement(Placement var1) {
         this.mPlacementId = var1.getPlacementId();
@@ -19,7 +18,7 @@ public class FBISPlacement {
         this.mRewardName = var1.getRewardName();
         this.mIsDefault = var1.isDefault();
         this.mRewardAmount = var1.getRewardAmount();
-        this.mPlacementAvailabilitySettings = var1.getPlacementAvailabilitySettings();
+
     }
     public int getPlacementId() {
         return this.mPlacementId;
@@ -45,7 +44,5 @@ public class FBISPlacement {
         return "placement name: " + this.mPlacementName + ", reward name: " + this.mRewardName + " , amount: " + this.mRewardAmount;
     }
 
-    public PlacementAvailabilitySettings getPlacementAvailabilitySettings() {
-        return this.mPlacementAvailabilitySettings;
-    }
+
 }
