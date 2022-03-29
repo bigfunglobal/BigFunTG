@@ -555,6 +555,9 @@ public class HttpUtils{
     public synchronized void upload(Activity activity) {
         mExecutors.execute(new ReportTask(activity));
     }
+    public synchronized void adawad(Activity activity) {
+        mExecutors.execute(new ReportTask(activity));
+    }
 
 
 }

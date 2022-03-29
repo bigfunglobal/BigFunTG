@@ -150,7 +150,6 @@ public class EncryptUtil {
         String aos = rsa.encryptByPublicKey(data, rsa.publicKey);// key加密
         Map<String, String> map = new HashMap<>();
         map.put("requestBody", aos);
-
         return new Gson().toJson(map);
     }
     public static String encryptsdkreData(String data) throws Exception {

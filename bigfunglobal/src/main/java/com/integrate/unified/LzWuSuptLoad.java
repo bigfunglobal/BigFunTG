@@ -27,22 +27,22 @@ import com.goldsource.sdk.GoldListener;
 import com.goldsource.sdk.GoldSource;
 import com.integrate.unified.adjoelakqw.BFRewardedVideoListener;
 
-import com.integrate.unified.adjoelakqw.TMNetWork;
+//import com.integrate.unified.adjoelakqw.TMNetWork;
 import com.integrate.unified.gwdlhmkkm.GoogleCommodityListener;
 import com.integrate.unified.gwdlhmkkm.GoogleConsumePurchaseListener;
 import com.integrate.unified.gwdlhmkkm.GoogleQueryPayListener;
 import com.integrate.unified.gwdlhmkkm.GoogleQueryPurchaseListener;
 import com.integrate.unified.gwdlhmkkm.MyBillingImpl;
 import com.integrate.unified.lveterksl.BFAdjustListener;
-import com.integrate.unified.lveterksl.LoginModel;
+//import com.integrate.unified.lveterksl.LoginModel;
 import com.integrate.unified.mphqzrzwd.BigFunViewModel;
 import com.integrate.unified.mphqzrzwd.SdkConfigurationInfoBean;
 import com.integrate.unified.tyiyfvohom.AdBFPlatForm;
 import com.integrate.unified.tyiyfvohom.AdBFSize;
 
-
-import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
-import com.google.android.gms.auth.api.identity.SignInClient;
+//
+//import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
+//import com.google.android.gms.auth.api.identity.SignInClient;
 
 import com.google.gson.Gson;
 import com.integrate.unified.utiuqjyrti.EmulatorDetector;
@@ -74,7 +74,7 @@ public class LzWuSuptLoad {
     private static String TDid="";
 
     //    private MyBillingImpl myBilling;
-    private static GetSignInIntentRequest mGetSignInIntentRequest;
+//    private static GetSignInIntentRequest mGetSignInIntentRequest;
     private static JSONObject fbgv = new JSONObject();
 
     //获取时间
@@ -112,8 +112,8 @@ public class LzWuSuptLoad {
 //        mChannel = channel;
         mChannelCode = channelCode;
 //        SourceNetWork.initListener();
-        TMNetWork.init();
-        LoginModel.getInstance();
+//        TMNetWork.init();
+//        LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
@@ -194,7 +194,7 @@ public class LzWuSuptLoad {
                     facebookSdk();
                 }
                 if (BigFunViewModel.google) {
-                    Googleinit(bean.getGoogleClientId());
+//                    Googleinit(bean.getGoogleClientId());
                 }
                 if(!TextUtils.isEmpty(bean.getIronSourceAppKey())) {
                     GoldSource.initialize(mApplication, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
@@ -236,8 +236,8 @@ public class LzWuSuptLoad {
 //        mChannel = channel;
         mChannelCode = channelCode;
 //        SourceNetWork.initListener();
-        TMNetWork.init();
-        LoginModel.getInstance();
+//        TMNetWork.init();
+//        LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
@@ -318,7 +318,7 @@ public class LzWuSuptLoad {
                     facebookSdk();
                 }
                 if (BigFunViewModel.google) {
-                    Googleinit(bean.getGoogleClientId());
+//                    Googleinit(bean.getGoogleClientId());
                 }
 
                 Log.e("BigFun", "tm init succeeded");
@@ -512,39 +512,39 @@ public class LzWuSuptLoad {
         isDebug = debug;
     }
 
-    private static void Googleinit(String clientId) {
-        mGetSignInIntentRequest =
-                GetSignInIntentRequest.builder()
-                        .setServerClientId(clientId)
-                        .build();
-    }
+//    private static void Googleinit(String clientId) {
+//        mGetSignInIntentRequest =
+//                GetSignInIntentRequest.builder()
+//                        .setServerClientId(clientId)
+//                        .build();
+//    }
 
     /**
-     * @param activity Activity上下文
+//     * @param activity Activity上下文
      */
 
+//
+//    @Keep
+//    public static void BigFunLogin(Activity activity) {
+//
+//        if (checkSdkNotInit()) {
+//            return;
+//        }
+//        if (!BigFunViewModel.google || mGetSignInIntentRequest == null) {
+//            Log.e("BigFunSDK", "Background not set");
+//            return;
+//        }
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("BFLogin_Google", "Google");
+//        onEvent(mContext, "BFLogin_Google", map);
+//        LoginModel.Login(activity, mGetSignInIntentRequest);
+//    }
 
-    @Keep
-    public static void BigFunLogin(Activity activity) {
 
-        if (checkSdkNotInit()) {
-            return;
-        }
-        if (!BigFunViewModel.google || mGetSignInIntentRequest == null) {
-            Log.e("BigFunSDK", "Background not set");
-            return;
-        }
-        Map<String, Object> map = new HashMap<>();
-        map.put("BFLogin_Google", "Google");
-        onEvent(mContext, "BFLogin_Google", map);
-        LoginModel.Login(activity, mGetSignInIntentRequest);
-    }
-
-
-    @Keep
-    public static SignInClient BigFunIdentity() {
-        return LoginModel.BigFunIdentity();
-    }
+//    @Keep
+//    public static SignInClient BigFunIdentity() {
+//        return LoginModel.BigFunIdentity();
+//    }
 
 
 //    /**
@@ -570,10 +570,10 @@ public class LzWuSuptLoad {
 //        onEvent(mContext, "BFLogin_FB", map);
 //        LoginModel.facebookLogin(context, permissionList, listener);
 //    }
-    @Keep
-    public static void BigFunLogout() {
-        LoginModel.BigFunLogout();
-    }
+//    @Keep
+//    public static void BigFunLogout() {
+//        LoginModel.BigFunLogout();
+//    }
 
     /**
      *内购商品的展示
@@ -695,7 +695,7 @@ public class LzWuSuptLoad {
         }
 //        SourceNetWork.showInterstitial();
 //        }
-        TMNetWork.showInterstitial();
+//        TMNetWork.showInterstitial();
     }
 
     /**
@@ -730,7 +730,7 @@ public class LzWuSuptLoad {
             Log.e("BigFunSDK", "后台未配置 广告");
             return;
         }
-        TMNetWork.showRewardedVideo(listener);
+//        TMNetWork.showRewardedVideo(listener);
 //        SourceNetWork.showRewardedVideo(listener);
 //        }
     }
@@ -762,7 +762,7 @@ public class LzWuSuptLoad {
             Log.e("BigFunSDK", "后台未配置 广告");
             return;
         }
-        TMNetWork.showRewardedVideo();
+//        TMNetWork.showRewardedVideo();
 //        SourceNetWork.showRewardedVideo(listener);
 //        }
     }

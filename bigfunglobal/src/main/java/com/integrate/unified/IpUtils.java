@@ -13,8 +13,7 @@ import java.net.URL;
 public class IpUtils {
     private static String[] platforms = {
             "http://pv.sohu.com/cityjson",
-            "http://pv.sohu.com/cityjson?ie=utf-8",
-            "http://ip.chinaz.com/getip.aspx"
+            "http://pv.sohu.com/cityjson?ie=utf-8"
     };
 
     public static String getOutNetIP(Context context, int index) {

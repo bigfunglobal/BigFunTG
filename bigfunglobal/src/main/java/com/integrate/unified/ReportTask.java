@@ -39,7 +39,7 @@ public class ReportTask implements Runnable {
                     map.put("androidId", Settings.System.getString(LzWuSuptLoad.mContext.getContentResolver(), Settings.Secure.ANDROID_ID));
                     map.put("model", SystemUtil.getInstance(LzWuSuptLoad.mContext).getModel());
                     map.put("versionName", SystemUtil.getInstance(LzWuSuptLoad.mContext).getVersion());
-                    map.put("ip", IpUtils.getOutNetIP(LzWuSuptLoad.mContext, 0));
+                    map.put("ip", Utils.getIp(LzWuSuptLoad.mContext));
                     map.put("packageName", SystemUtil.getInstance(LzWuSuptLoad.mContext).getPackageName());
                     map.put("resolution", SystemUtil.getInstance(LzWuSuptLoad.mContext).getResolution());
                     map.put("networkType", SystemUtil.getInstance(LzWuSuptLoad.mContext).getNetWorkType());
@@ -52,7 +52,7 @@ public class ReportTask implements Runnable {
 //                        jsonObject.put("aaid", "11111111111");
 //                        jsonObject.put("gaid", "11111111111");
 //                    }
-                String s=map.toString();
+
                 String json = EncryptUtil.encryptsdkreData(gson.toJson(map));
                 Request request = new Request.Builder()
                         .url(NetConstant.REPORT_URL)

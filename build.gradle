@@ -19,10 +19,10 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
-//        maven {
-////            //IronSource
-//            url "https://android-sdk.is.com/"
-//        }
+        maven {
+//            //IronSource
+            url "https://android-sdk.is.com/"
+        }
         flatDir {
             dirs 'libs'
         }
