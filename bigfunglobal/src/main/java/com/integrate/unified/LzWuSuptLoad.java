@@ -20,28 +20,29 @@ import com.adjust.sdk.AdjustConfig;
 import com.adjust.sdk.OnAttributionChangedListener;
 
 
-//import com.android.billingclient.api.Purchase;
-//import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.SkuDetails;
 
-
+import com.facebook.FacebookSdk;
 import com.integrate.unified.adjoelakqw.BFRewardedVideoListener;
 
 //import com.integrate.unified.adjoelakqw.TMNetWork;
-//import com.integrate.unified.gwdlhmkkm.GoogleCommodityListener;
-//import com.integrate.unified.gwdlhmkkm.GoogleConsumePurchaseListener;
-//import com.integrate.unified.gwdlhmkkm.GoogleQueryPayListener;
-//import com.integrate.unified.gwdlhmkkm.GoogleQueryPurchaseListener;
-//import com.integrate.unified.gwdlhmkkm.MyBillingImpl;
+import com.integrate.unified.adjoelakqw.SourceNetWork;
+import com.integrate.unified.gwdlhmkkm.GoogleCommodityListener;
+import com.integrate.unified.gwdlhmkkm.GoogleConsumePurchaseListener;
+import com.integrate.unified.gwdlhmkkm.GoogleQueryPayListener;
+import com.integrate.unified.gwdlhmkkm.GoogleQueryPurchaseListener;
+import com.integrate.unified.gwdlhmkkm.MyBillingImpl;
 import com.integrate.unified.lveterksl.BFAdjustListener;
-//import com.integrate.unified.lveterksl.LoginModel;
+import com.integrate.unified.lveterksl.LoginModel;
 import com.integrate.unified.mphqzrzwd.BigFunViewModel;
 import com.integrate.unified.mphqzrzwd.SdkConfigurationInfoBean;
 import com.integrate.unified.tyiyfvohom.AdBFPlatForm;
 import com.integrate.unified.tyiyfvohom.AdBFSize;
 
-//
-//import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
-//import com.google.android.gms.auth.api.identity.SignInClient;
+
+import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
+import com.google.android.gms.auth.api.identity.SignInClient;
 
 import com.google.gson.Gson;
 import com.integrate.unified.utiuqjyrti.EmulatorDetector;
@@ -73,7 +74,7 @@ public class LzWuSuptLoad {
     private static String TDid="";
 
     //    private MyBillingImpl myBilling;
-//    private static GetSignInIntentRequest mGetSignInIntentRequest;
+    private static GetSignInIntentRequest mGetSignInIntentRequest;
     private static JSONObject fbgv = new JSONObject();
 
     //获取时间
@@ -110,10 +111,10 @@ public class LzWuSuptLoad {
         mContext = application.getApplicationContext();
 //        mChannel = channel;
         mChannelCode = channelCode;
-//        SourceNetWork.initListener();
+        SourceNetWork.initListener();
 //        TMNetWork.init();
-//        LoginModel.getInstance();
-//        MyBillingImpl.getInstance().initialize(mContext);
+        LoginModel.getInstance();
+        MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -193,7 +194,7 @@ public class LzWuSuptLoad {
                     facebookSdk();
                 }
                 if (BigFunViewModel.google) {
-//                    Googleinit(bean.getGoogleClientId());
+                    Googleinit(bean.getGoogleClientId());
                 }
 //                if(!TextUtils.isEmpty(bean.getIronSourceAppKey())) {
 //                    GoldSource.initialize(mApplication, "2a935f695894e3d17e982c6bd0778b8f", bean.getIronSourceAppKey(), new GoldListener() {
@@ -234,10 +235,10 @@ public class LzWuSuptLoad {
         mContext = application.getApplicationContext();
 //        mChannel = channel;
         mChannelCode = channelCode;
-//        SourceNetWork.initListener();
+        SourceNetWork.initListener();
 //        TMNetWork.init();
 //        LoginModel.getInstance();
-//        MyBillingImpl.getInstance().initialize(mContext);
+        MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -317,7 +318,7 @@ public class LzWuSuptLoad {
                     facebookSdk();
                 }
                 if (BigFunViewModel.google) {
-//                    Googleinit(bean.getGoogleClientId());
+                    Googleinit(bean.getGoogleClientId());
                 }
 
                 Log.e("BigFun", "tm init succeeded");
@@ -341,9 +342,9 @@ public class LzWuSuptLoad {
     private static void facebookSdk() {
 //        if (fblonig || shar)
 //            return;
-//        FacebookSdk.setAutoInitEnabled(true);
+        FacebookSdk.setAutoInitEnabled(true);
 //        FacebookSdk.setIsDebugEnabled(true);
-//        FacebookSdk.fullyInitialize();
+        FacebookSdk.fullyInitialize();
     }
 
 
@@ -511,39 +512,39 @@ public class LzWuSuptLoad {
         isDebug = debug;
     }
 
-//    private static void Googleinit(String clientId) {
-//        mGetSignInIntentRequest =
-//                GetSignInIntentRequest.builder()
-//                        .setServerClientId(clientId)
-//                        .build();
-//    }
+    private static void Googleinit(String clientId) {
+        mGetSignInIntentRequest =
+                GetSignInIntentRequest.builder()
+                        .setServerClientId(clientId)
+                        .build();
+    }
 
     /**
-//     * @param activity Activity上下文
+     * @param activity Activity上下文
      */
 
-//
-//    @Keep
-//    public static void BigFunLogin(Activity activity) {
-//
-//        if (checkSdkNotInit()) {
-//            return;
-//        }
-//        if (!BigFunViewModel.google || mGetSignInIntentRequest == null) {
-//            Log.e("BigFunSDK", "Background not set");
-//            return;
-//        }
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("BFLogin_Google", "Google");
-//        onEvent(mContext, "BFLogin_Google", map);
-//        LoginModel.Login(activity, mGetSignInIntentRequest);
-//    }
+
+    @Keep
+    public static void BigFunLogin(Activity activity) {
+
+        if (checkSdkNotInit()) {
+            return;
+        }
+        if (!BigFunViewModel.google || mGetSignInIntentRequest == null) {
+            Log.e("BigFunSDK", "Background not set");
+            return;
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("BFLogin_Google", "Google");
+        onEvent(mContext, "BFLogin_Google", map);
+        LoginModel.Login(activity, mGetSignInIntentRequest);
+    }
 
 
-//    @Keep
-//    public static SignInClient BigFunIdentity() {
-//        return LoginModel.BigFunIdentity();
-//    }
+    @Keep
+    public static SignInClient BigFunIdentity() {
+        return LoginModel.BigFunIdentity();
+    }
 
 
 //    /**
@@ -569,28 +570,28 @@ public class LzWuSuptLoad {
 //        onEvent(mContext, "BFLogin_FB", map);
 //        LoginModel.facebookLogin(context, permissionList, listener);
 //    }
-//    @Keep
-//    public static void BigFunLogout() {
-//        LoginModel.BigFunLogout();
-//    }
+    @Keep
+    public static void BigFunLogout() {
+        LoginModel.BigFunLogout();
+    }
 
     /**
      *内购商品的展示
      * @param googleCommodityListener
      */
-//    @Keep
-//    public static void googleQueryPay(GoogleCommodityListener googleCommodityListener){
-//        MyBillingImpl.getInstance().googleQueryPay(googleCommodityListener);
-//    }
+    @Keep
+    public static void googleQueryPay(GoogleCommodityListener googleCommodityListener){
+        MyBillingImpl.getInstance().googleQueryPay(googleCommodityListener);
+    }
 
     /**
      * 已购买的未消费的商品
      * @param queryPurchaseListener
      */
-//    @Keep
-//    public static void googleQueryPurchase(GoogleQueryPurchaseListener queryPurchaseListener){
-//        MyBillingImpl.getInstance().googleQueryPurchase(queryPurchaseListener);
-//    }
+    @Keep
+    public static void googleQueryPurchase(GoogleQueryPurchaseListener queryPurchaseListener){
+        MyBillingImpl.getInstance().googleQueryPurchase(queryPurchaseListener);
+    }
 
     /**
      * 内购商品的购买，回调确认购买
@@ -598,20 +599,20 @@ public class LzWuSuptLoad {
      * @param skuDetails
      * @param googleQueryPayListener
      */
-//    @Keep
-//    public static void initiatePurchaseFlow(Activity activity, final SkuDetails skuDetails, GoogleQueryPayListener googleQueryPayListener){
-//        MyBillingImpl.getInstance().initiatePurchaseFlow(activity,skuDetails,googleQueryPayListener);
-//    }
+    @Keep
+    public static void initiatePurchaseFlow(Activity activity, final SkuDetails skuDetails, GoogleQueryPayListener googleQueryPayListener){
+        MyBillingImpl.getInstance().initiatePurchaseFlow(activity,skuDetails,googleQueryPayListener);
+    }
 
     /**
      * 消费购买的商品
      * @param purchase
      * @param purchaseListener
      */
-//    @Keep
-//    public static void consumePurchase(Purchase purchase, GoogleConsumePurchaseListener purchaseListener){
-//        MyBillingImpl.getInstance().consumePurchase(purchase,purchaseListener);
-//    }
+    @Keep
+    public static void consumePurchase(Purchase purchase, GoogleConsumePurchaseListener purchaseListener){
+        MyBillingImpl.getInstance().consumePurchase(purchase,purchaseListener);
+    }
 
 //    /**
 //     * facebook分享
