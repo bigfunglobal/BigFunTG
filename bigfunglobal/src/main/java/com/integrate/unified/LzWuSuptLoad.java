@@ -20,19 +20,19 @@ import com.adjust.sdk.AdjustConfig;
 import com.adjust.sdk.OnAttributionChangedListener;
 
 
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.SkuDetails;
+//import com.android.billingclient.api.Purchase;
+//import com.android.billingclient.api.SkuDetails;
 
 import com.goldsource.sdk.GoldListener;
 import com.goldsource.sdk.GoldSource;
 import com.integrate.unified.adjoelakqw.BFRewardedVideoListener;
 
 //import com.integrate.unified.adjoelakqw.TMNetWork;
-import com.integrate.unified.gwdlhmkkm.GoogleCommodityListener;
-import com.integrate.unified.gwdlhmkkm.GoogleConsumePurchaseListener;
-import com.integrate.unified.gwdlhmkkm.GoogleQueryPayListener;
-import com.integrate.unified.gwdlhmkkm.GoogleQueryPurchaseListener;
-import com.integrate.unified.gwdlhmkkm.MyBillingImpl;
+//import com.integrate.unified.gwdlhmkkm.GoogleCommodityListener;
+//import com.integrate.unified.gwdlhmkkm.GoogleConsumePurchaseListener;
+//import com.integrate.unified.gwdlhmkkm.GoogleQueryPayListener;
+//import com.integrate.unified.gwdlhmkkm.GoogleQueryPurchaseListener;
+//import com.integrate.unified.gwdlhmkkm.MyBillingImpl;
 import com.integrate.unified.lveterksl.BFAdjustListener;
 //import com.integrate.unified.lveterksl.LoginModel;
 import com.integrate.unified.mphqzrzwd.BigFunViewModel;
@@ -114,7 +114,7 @@ public class LzWuSuptLoad {
 //        SourceNetWork.initListener();
 //        TMNetWork.init();
 //        LoginModel.getInstance();
-        MyBillingImpl.getInstance().initialize(mContext);
+//        MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -238,7 +238,7 @@ public class LzWuSuptLoad {
 //        SourceNetWork.initListener();
 //        TMNetWork.init();
 //        LoginModel.getInstance();
-        MyBillingImpl.getInstance().initialize(mContext);
+//        MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
             public void handlerException(Thread thread, Throwable throwable) {
@@ -579,19 +579,19 @@ public class LzWuSuptLoad {
      *内购商品的展示
      * @param googleCommodityListener
      */
-    @Keep
-    public static void googleQueryPay(GoogleCommodityListener googleCommodityListener){
-        MyBillingImpl.getInstance().googleQueryPay(googleCommodityListener);
-    }
+//    @Keep
+//    public static void googleQueryPay(GoogleCommodityListener googleCommodityListener){
+//        MyBillingImpl.getInstance().googleQueryPay(googleCommodityListener);
+//    }
 
     /**
      * 已购买的未消费的商品
      * @param queryPurchaseListener
      */
-    @Keep
-    public static void googleQueryPurchase(GoogleQueryPurchaseListener queryPurchaseListener){
-        MyBillingImpl.getInstance().googleQueryPurchase(queryPurchaseListener);
-    }
+//    @Keep
+//    public static void googleQueryPurchase(GoogleQueryPurchaseListener queryPurchaseListener){
+//        MyBillingImpl.getInstance().googleQueryPurchase(queryPurchaseListener);
+//    }
 
     /**
      * 内购商品的购买，回调确认购买
@@ -599,20 +599,20 @@ public class LzWuSuptLoad {
      * @param skuDetails
      * @param googleQueryPayListener
      */
-    @Keep
-    public static void initiatePurchaseFlow(Activity activity, final SkuDetails skuDetails, GoogleQueryPayListener googleQueryPayListener){
-        MyBillingImpl.getInstance().initiatePurchaseFlow(activity,skuDetails,googleQueryPayListener);
-    }
+//    @Keep
+//    public static void initiatePurchaseFlow(Activity activity, final SkuDetails skuDetails, GoogleQueryPayListener googleQueryPayListener){
+//        MyBillingImpl.getInstance().initiatePurchaseFlow(activity,skuDetails,googleQueryPayListener);
+//    }
 
     /**
      * 消费购买的商品
      * @param purchase
      * @param purchaseListener
      */
-    @Keep
-    public static void consumePurchase(Purchase purchase, GoogleConsumePurchaseListener purchaseListener){
-        MyBillingImpl.getInstance().consumePurchase(purchase,purchaseListener);
-    }
+//    @Keep
+//    public static void consumePurchase(Purchase purchase, GoogleConsumePurchaseListener purchaseListener){
+//        MyBillingImpl.getInstance().consumePurchase(purchase,purchaseListener);
+//    }
 
 //    /**
 //     * facebook分享
