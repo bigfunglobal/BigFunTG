@@ -24,8 +24,6 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 
 import com.facebook.FacebookSdk;
-import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
-import com.google.android.gms.auth.api.identity.SignInClient;
 import com.integrate.unified.adjoelakqw.BFRewardedVideoListener;
 
 //import com.integrate.unified.adjoelakqw.TMNetWork;
@@ -36,7 +34,6 @@ import com.integrate.unified.gwdlhmkkm.GoogleQueryPayListener;
 import com.integrate.unified.gwdlhmkkm.GoogleQueryPurchaseListener;
 import com.integrate.unified.gwdlhmkkm.MyBillingImpl;
 import com.integrate.unified.lveterksl.BFAdjustListener;
-import com.integrate.unified.lveterksl.LoginModel;
 import com.integrate.unified.mphqzrzwd.BigFunViewModel;
 import com.integrate.unified.mphqzrzwd.SdkConfigurationInfoBean;
 import com.integrate.unified.tyiyfvohom.AdBFPlatForm;
@@ -73,7 +70,7 @@ public class LzWuSuptLoad {
     private static String TDid="";
 
     //    private MyBillingImpl myBilling;
-    private static GetSignInIntentRequest mGetSignInIntentRequest;
+//    private static GetSignInIntentRequest mGetSignInIntentRequest;
     private static JSONObject fbgv = new JSONObject();
 
     //获取时间
@@ -112,7 +109,7 @@ public class LzWuSuptLoad {
         mChannelCode = channelCode;
         SourceNetWork.initListener();
 //        TMNetWork.init();
-        LoginModel.getInstance();
+//        LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
@@ -236,7 +233,7 @@ public class LzWuSuptLoad {
         mChannelCode = channelCode;
         SourceNetWork.initListener();
 //        TMNetWork.init();
-        LoginModel.getInstance();
+//        LoginModel.getInstance();
         MyBillingImpl.getInstance().initialize(mContext);
         ExceptionHandler.install(new ExceptionHandler.CustomExceptionHandler() {
             @Override
@@ -512,10 +509,10 @@ public class LzWuSuptLoad {
     }
 
     private static void Googleinit(String clientId) {
-        mGetSignInIntentRequest =
-                GetSignInIntentRequest.builder()
-                        .setServerClientId(clientId)
-                        .build();
+//        mGetSignInIntentRequest =
+//                GetSignInIntentRequest.builder()
+//                        .setServerClientId(clientId)
+//                        .build();
     }
 
     /**
@@ -523,27 +520,27 @@ public class LzWuSuptLoad {
      */
 
 
-    @Keep
-    public static void BigFunLogin(Activity activity) {
+//    @Keep
+//    public static void BigFunLogin(Activity activity) {
+//
+//        if (checkSdkNotInit()) {
+//            return;
+//        }
+//        if (!BigFunViewModel.google || mGetSignInIntentRequest == null) {
+//            Log.e("BigFunSDK", "Background not set");
+//            return;
+//        }
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("BFLogin_Google", "Google");
+//        onEvent(mContext, "BFLogin_Google", map);
+//        LoginModel.Login(activity, mGetSignInIntentRequest);
+//    }
 
-        if (checkSdkNotInit()) {
-            return;
-        }
-        if (!BigFunViewModel.google || mGetSignInIntentRequest == null) {
-            Log.e("BigFunSDK", "Background not set");
-            return;
-        }
-        Map<String, Object> map = new HashMap<>();
-        map.put("BFLogin_Google", "Google");
-        onEvent(mContext, "BFLogin_Google", map);
-        LoginModel.Login(activity, mGetSignInIntentRequest);
-    }
 
-
-    @Keep
-    public static SignInClient BigFunIdentity() {
-        return LoginModel.BigFunIdentity();
-    }
+//    @Keep
+//    public static SignInClient BigFunIdentity() {
+//        return LoginModel.BigFunIdentity();
+//    }
 
 
 //    /**
@@ -569,10 +566,10 @@ public class LzWuSuptLoad {
 //        onEvent(mContext, "BFLogin_FB", map);
 //        LoginModel.facebookLogin(context, permissionList, listener);
 //    }
-    @Keep
-    public static void BigFunLogout() {
-        LoginModel.BigFunLogout();
-    }
+//    @Keep
+//    public static void BigFunLogout() {
+//        LoginModel.BigFunLogout();
+//    }
 
     /**
      *内购商品的展示
